@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+node_modules/
+dist/
+prototype/output/generated/
+prototype/data/youtube_oauth_token.json

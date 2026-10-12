@@ -1,0 +1,2680 @@
+{
+  "instructions": "Mỗi story: xác nhận thuộc Ngoại hạng Anh, tự viết summary_vi dựa trên các nguồn, rồi chọn supported/uncertain/rejected. Chỉ dùng supported hoặc uncertain khi competition_confirmed=true và đã kiểm tra nguồn.",
+  "stories": [
+    {
+      "story_id": "story-a89b9bc25671",
+      "title": "The 'Kane-esque' striker Spurs may regret letting go",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "Lankshear ghi bàn cho Middlesbrough, gây tiếc nuối cho Tottenham",
+      "evidence_notes": "Bài báo xác nhận Lankshear ghi bàn cho Middlesbrough, đồng thời nêu rõ anh rời Tottenham. Các thông tin về hợp đồng và tình hình thi đấu được cung cấp rõ ràng.\n\nNguồn agent đã đọc:\n- BBC Sport: https://www.bbc.co.uk/sport/football/articles/cq1kdmej1xnvo?at_medium=RSS&at_campaign=rss",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cq1kdmej1xnvo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-12T05:40:07+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "needs_review",
+      "agent_reason": "Thông tin được xác nhận từ bài báo BBC Sport, rõ ràng và có nguồn gốc đáng tin cậy.",
+      "agent_confidence": 0.9,
+      "agent_sources_read": [
+        "https://www.bbc.co.uk/sport/football/articles/cq1kdmej1xnvo?at_medium=RSS&at_campaign=rss"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.bbc.co.uk/sport/football/articles/cq1kdmej1xnvo?at_medium=RSS&at_campaign=rss",
+          "ok": true,
+          "characters_read": 6837,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "Lankshear ghi bàn cho Middlesbrough",
+        "Tottenham tiếc nuối việc bán cầu thủ",
+        "Thông tin chưa được xác nhận"
+      ],
+      "agent_researched_at": "2026-10-12T06:16:09.214084+00:00",
+      "generated_script": "Lankshear ghi bàn cho Middlesbrough\nTottenham tiếc nuối việc bán cầu thủ\nThông tin chưa được xác nhận",
+      "ai_review_status": "needs_review",
+      "ai_review_notes": "Dòng 'Cầu thủ trẻ gây ấn tượng mạnh' không có căn cứ trong tóm tắt hoặc ghi chú, mâu thuẫn với trạng thái uncertain",
+      "script_generated_at": "2026-10-12T06:17:11.701353+00:00",
+      "script_review_attempts": 2,
+      "script_approved": false,
+      "agent_step": "script_review",
+      "agent_last_attempt_at": "2026-10-12T06:17:11.701369+00:00"
+    },
+    {
+      "story_id": "story-5ffda07cdb7e",
+      "title": "Who am I? Plus today's other quizzes",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c98rzjv13gdlo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-12T05:38:24+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-886e2b535a31",
+      "title": "Man City show snarl, defiance in wake of cheating scandal, trounce Liverpool",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "Man City thắng Liverpool 3-0 sau thẻ đỏ của Gravenberch",
+      "evidence_notes": "Bài báo xác nhận trận đấu thuộc Premier League, có thông tin về các cầu thủ, tình huống và kết quả trận đấu.\n\nNguồn agent đã đọc:\n- ESPN: https://www.espn.com/soccer/story/_/id/50158698/man-city-snarl-defiance-wake-cheating-scandal-thrash-depleted-liverpool",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50158698/man-city-snarl-defiance-wake-cheating-scandal-thrash-depleted-liverpool",
+          "published_at": "2026-10-12T03:22:42+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "needs_review",
+      "agent_reason": "Thông tin được xác nhận từ bài báo ESPN, có chi tiết về trận đấu và tình hình đội hình.",
+      "agent_confidence": 0.9,
+      "agent_sources_read": [
+        "https://www.espn.com/soccer/story/_/id/50158698/man-city-snarl-defiance-wake-cheating-scandal-thrash-depleted-liverpool"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/50158698/man-city-snarl-defiance-wake-cheating-scandal-thrash-depleted-liverpool",
+          "ok": true,
+          "characters_read": 7359,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "Man City thắng Liverpool 3-0",
+        "Gravenberch nhận thẻ đỏ",
+        "Tin chưa được xác nhận"
+      ],
+      "agent_researched_at": "2026-10-12T06:19:13.368453+00:00",
+      "generated_script": "Man City thắng Liverpool 3-0\nGravenberch nhận thẻ đỏ\nTin chưa được xác nhận",
+      "ai_review_status": "needs_review",
+      "ai_review_notes": "Dòng 'Man City tiếp tục thống trị Premier League' không có căn cứ trong tóm tắt hoặc ghi chú, khẳng định quá chắc với trạng thái uncertain",
+      "script_generated_at": "2026-10-12T06:20:00.397810+00:00",
+      "script_review_attempts": 2,
+      "script_approved": false,
+      "agent_step": "script_review",
+      "agent_last_attempt_at": "2026-10-12T06:20:00.397826+00:00"
+    },
+    {
+      "story_id": "story-cd51ee77ea27",
+      "title": "Premier League VAR review: Liverpool's Gravenberch wrongly sent off vs. Man City?",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "VAR xem xét thẻ đỏ Gravenberch",
+      "evidence_notes": "Bài báo xác nhận sự việc xảy ra trong Premier League, có phân tích từ trọng tài và VAR.\n\nNguồn agent đã đọc:\n- ESPN: https://www.espn.com/soccer/story/_/id/49703019/premier-league-var-review-red-card-penalty-handball-goal-line-technology",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/49703019/premier-league-var-review-red-card-penalty-handball-goal-line-technology",
+          "published_at": "2026-10-12T03:22:42+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "needs_review",
+      "agent_reason": "Có thông tin rõ ràng từ bài báo, xác nhận sự việc trong Premier League.",
+      "agent_confidence": 0.9,
+      "agent_sources_read": [
+        "https://www.espn.com/soccer/story/_/id/49703019/premier-league-var-review-red-card-penalty-handball-goal-line-technology"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/49703019/premier-league-var-review-red-card-penalty-handball-goal-line-technology",
+          "ok": true,
+          "characters_read": 12000,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "VAR xem xét thẻ đỏ Gravenberch",
+        "Sự việc được VAR kiểm tra",
+        "Tình huống chưa được xác nhận"
+      ],
+      "agent_researched_at": "2026-10-12T06:22:48.367073+00:00",
+      "generated_script": "VAR xem xét thẻ đỏ Gravenberch\nSự việc được VAR kiểm tra\nTình huống chưa được xác nhận",
+      "ai_review_status": "needs_review",
+      "ai_review_notes": "Dòng chữ 'Gravenberch bị thẻ đỏ vì phạm lỗi' không xuất hiện trong script_to_review, nhưng lại có trong video_lines, gây mâu thuẫn với nội dung đã được xác nhận.",
+      "script_generated_at": "2026-10-12T06:23:38.929712+00:00",
+      "script_review_attempts": 2,
+      "script_approved": false,
+      "agent_step": "script_review",
+      "agent_last_attempt_at": "2026-10-12T06:23:38.929726+00:00"
+    },
+    {
+      "story_id": "story-9312ca2f695b",
+      "title": "'Call it a day with VAR' - Rooney on Palace's controversial goal",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cqlyendmk7wyo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T23:31:42+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-d99fef5e806a",
+      "title": "'It's a bad situation' - Why Man City win creates uncertainty",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cw073z5j55y9o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T23:23:03+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "error",
+      "agent_step": "article_research",
+      "agent_error": "'video_lines'",
+      "agent_last_attempt_at": "2026-10-12T06:24:31.001696+00:00"
+    },
+    {
+      "story_id": "story-fdc4993b0a2e",
+      "title": "Transfer rumors, news: Arsenal, Chelsea, Liverpool want Roma youngster",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "Arsenal, Chelsea, Liverpool theo đuổi Emanuele Lulli của Roma",
+      "evidence_notes": "Nguồn xác nhận các đội Premier League như Arsenal, Chelsea, Liverpool quan tâm đến Emanuele Lulli, một cầu thủ trẻ của Roma.\n\nNguồn agent đã đọc:\n- ESPN: https://www.espn.com/soccer/story/_/id/50155123/transfer-rumors-news-manchester-city-tottenham-hotspur-eye-atletico-madrid-giuliano-simeone",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50155123/transfer-rumors-news-manchester-city-tottenham-hotspur-eye-atletico-madrid-giuliano-simeone",
+          "published_at": "2026-10-11T23:13:56+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "needs_review",
+      "agent_reason": "Nguồn xác nhận rõ ràng các đội Premier League quan tâm đến Emanuele Lulli.",
+      "agent_confidence": 0.9,
+      "agent_sources_read": [
+        "https://www.espn.com/soccer/story/_/id/50155123/transfer-rumors-news-manchester-city-tottenham-hotspur-eye-atletico-madrid-giuliano-simeone"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/50155123/transfer-rumors-news-manchester-city-tottenham-hotspur-eye-atletico-madrid-giuliano-simeone",
+          "ok": true,
+          "characters_read": 4337,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "Arsenal, Chelsea, Liverpool theo đuổi Emanuele L",
+        "Roma cố giữ Lulli bằng hợp đồng dài hạn",
+        "Tin chưa được xác nhận về sự quan tâm của các độ"
+      ],
+      "agent_researched_at": "2026-10-12T06:25:55.254957+00:00",
+      "generated_script": "Arsenal, Chelsea, Liverpool theo đuổi Emanuele L\nRoma cố giữ Lulli bằng hợp đồng dài hạn\nTin chưa được xác nhận về sự quan tâm của các độ",
+      "ai_review_status": "needs_review",
+      "ai_review_notes": "Dòng 'Tin chưa được xác nhận về sự quan tâm của các độ' có lỗi chính tả và không khớp với thông tin trong editor_summary_vi, đồng thời không phản ánh chính xác trạng thái uncertain.",
+      "script_generated_at": "2026-10-12T06:26:54.554726+00:00",
+      "script_review_attempts": 2,
+      "script_approved": false,
+      "agent_step": "script_review",
+      "agent_last_attempt_at": "2026-10-12T06:26:54.554738+00:00"
+    },
+    {
+      "story_id": "story-8a6c91bc0b94",
+      "title": "'Big star' - How Doku delivered for Man City in win against Liverpool",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c8g47knxqvgdo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T23:00:57+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "error",
+      "agent_step": "article_research",
+      "agent_error": "'video_lines'",
+      "agent_last_attempt_at": "2026-10-12T06:27:33.983549+00:00"
+    },
+    {
+      "story_id": "story-27385e5b236f",
+      "title": "Rooney gives verdict on Gravenberch red card",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c6ly0jdndez9o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T23:00:33+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-a842a8a54a98",
+      "title": "Man City thrash Liverpool to silence vitriolic Anfield",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "Man City thắng Liverpool 3-0, giữ vững vị trí đầu bảng Premier League",
+      "evidence_notes": "Bài báo xác nhận trận đấu thuộc Premier League, có thông tin về kết quả, đội hình và tình hình bảng xếp hạng.\n\nNguồn agent đã đọc:\n- ESPN: https://www.espn.com/soccer/story/_/id/50158820/man-city-thrash-liverpool-enzo-maresca-men-silence-vitriolic-anfield",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50158820/man-city-thrash-liverpool-enzo-maresca-men-silence-vitriolic-anfield",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "needs_review",
+      "agent_reason": "Thông tin được xác nhận từ bài báo ESPN.",
+      "agent_confidence": 0.9,
+      "agent_sources_read": [
+        "https://www.espn.com/soccer/story/_/id/50158820/man-city-thrash-liverpool-enzo-maresca-men-silence-vitriolic-anfield"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/50158820/man-city-thrash-liverpool-enzo-maresca-men-silence-vitriolic-anfield",
+          "ok": true,
+          "characters_read": 2197,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "Man City thắng Liverpool 3-0",
+        "Giữ vững vị trí đầu bảng",
+        "Kết quả chưa được xác nhận"
+      ],
+      "agent_researched_at": "2026-10-12T06:28:33.299483+00:00",
+      "generated_script": "Man City thắng Liverpool 3-0\nGiữ vững vị trí đầu bảng\nKết quả chưa được xác nhận",
+      "ai_review_status": "needs_review",
+      "ai_review_notes": "Dòng chữ 'Không để Anfield làm khó' không được đề cập trong tóm tắt hoặc ghi chú, và không có bằng chứng xác nhận trong script_to_review",
+      "script_generated_at": "2026-10-12T06:29:24.101873+00:00",
+      "script_review_attempts": 2,
+      "script_approved": false,
+      "agent_step": "script_review",
+      "agent_last_attempt_at": "2026-10-12T06:29:24.101889+00:00"
+    },
+    {
+      "story_id": "story-edf15e7818f4",
+      "title": "Iraola: Gravenberch red undeserved in loss vs. Man City",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "Iraola chỉ trích quyết định thẻ đỏ của Gravenberch",
+      "evidence_notes": "Bài báo xác nhận sự kiện thuộc Premier League, có thông tin từ nguồn ESPN.\n\nNguồn agent đã đọc:\n- ESPN: https://www.espn.com/soccer/story/_/id/50159585/liverpool-andoni-iraola-ryan-gravenberch-did-not-deserve-two-yellows-man-city-loss",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50159585/liverpool-andoni-iraola-ryan-gravenberch-did-not-deserve-two-yellows-man-city-loss",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "needs_review",
+      "agent_reason": "Thông tin được xác nhận từ nguồn ESPN, thuộc Premier League.",
+      "agent_confidence": 0.9,
+      "agent_sources_read": [
+        "https://www.espn.com/soccer/story/_/id/50159585/liverpool-andoni-iraola-ryan-gravenberch-did-not-deserve-two-yellows-man-city-loss"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/50159585/liverpool-andoni-iraola-ryan-gravenberch-did-not-deserve-two-yellows-man-city-loss",
+          "ok": true,
+          "characters_read": 3299,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "Iraola chỉ trích thẻ đỏ Gravenberch",
+        "Trận đấu bị ảnh hưởng bởi thẻ đỏ",
+        "Tin chưa được xác nhận"
+      ],
+      "agent_researched_at": "2026-10-12T06:30:36.471635+00:00",
+      "generated_script": "Iraola chỉ trích thẻ đỏ Gravenberch\nTrận đấu bị ảnh hưởng bởi thẻ đỏ\nTin chưa được xác nhận",
+      "ai_review_status": "needs_review",
+      "ai_review_notes": "Dòng chữ 'Liverpool thua Man City 3-0' không có trong tóm tắt/ghi chú và không được xác nhận trong script_to_review",
+      "script_generated_at": "2026-10-12T06:31:25.334634+00:00",
+      "script_review_attempts": 2,
+      "script_approved": false,
+      "agent_step": "script_review",
+      "agent_last_attempt_at": "2026-10-12T06:31:25.334648+00:00"
+    },
+    {
+      "story_id": "story-c9e96bfcffe6",
+      "title": "Maresca praises Man City hierarchy's united front",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "Maresca khen ngợi tinh thần đoàn kết của Man City",
+      "evidence_notes": "Bài báo xác nhận Maresca khen ngợi tinh thần đoàn kết của Man City trong trận thắng Liverpool, thuộc Premier League.\n\nNguồn agent đã đọc:\n- ESPN: https://www.espn.com/soccer/story/_/id/50159480/man-city-enzo-maresca-financial-breaches-liverpool-premier-league",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50159480/man-city-enzo-maresca-financial-breaches-liverpool-premier-league",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "needs_review",
+      "agent_reason": "Thông tin được xác nhận từ bài báo ESPN.",
+      "agent_confidence": 0.9,
+      "agent_sources_read": [
+        "https://www.espn.com/soccer/story/_/id/50159480/man-city-enzo-maresca-financial-breaches-liverpool-premier-league"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/50159480/man-city-enzo-maresca-financial-breaches-liverpool-premier-league",
+          "ok": true,
+          "characters_read": 2286,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "Maresca khen ngợi tinh thần đoàn kết",
+        "Man City thắng đậm Liverpool",
+        "Tin chưa được xác nhận"
+      ],
+      "agent_researched_at": "2026-10-12T06:32:25.963436+00:00",
+      "generated_script": "Maresca khen ngợi tinh thần đoàn kết\nMan City thắng đậm Liverpool\nTin chưa được xác nhận",
+      "ai_review_status": "needs_review",
+      "ai_review_notes": "Dòng chữ 'Tinh thần chiến đấu mạnh mẽ' không có trong script_to_review và không được xác nhận từ editor_evidence_notes",
+      "script_generated_at": "2026-10-12T06:33:10.500789+00:00",
+      "script_review_attempts": 2,
+      "script_approved": false,
+      "agent_step": "script_review",
+      "agent_last_attempt_at": "2026-10-12T06:33:10.500801+00:00"
+    },
+    {
+      "story_id": "story-401ebf4d709d",
+      "title": "Corinthians hire Seedorf amid league struggles",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50160171/corinthians-hire-clarence-seedorf-head-coach-seven-consecutive-league-defeats",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-adc218cd248f",
+      "title": "USWNT 'frustrated' but 'not deterred' by loss to world champs Spain",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50151351/uswnt-vs-spain-women-soccer-emma-hayes-trinity-rodman",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-ed1a518da00c",
+      "title": "Messi scores twice for Miami in 1st game since Argentina farewell",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50152619/lionel-messi-goals-inter-miami-vs-dc-united-mls-argentina",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-cb9c231e63e5",
+      "title": "Vinícius Júnior 'sorry' after red card for hair pull",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50150534/vinicius-junior-red-card-real-madrid-villarreal",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-d63744c2feca",
+      "title": "Ronaldo suspended by Portugal as disciplinary case opens",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50146841/cristiano-ronaldo-suspended-portugal-national-team-walkout-jorge-jesus-disciplinary",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-811e38e8dced",
+      "title": "👀 Liverpool fans 'welcome' Man City to Anfield after guilty verdict",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "Liverpool chào mừng Man City sau án phạt",
+      "evidence_notes": "Bài báo xác nhận sự kiện thuộc Premier League và mô tả các hoạt động của người hâm mộ.\n\nNguồn agent đã đọc:\n- ESPN: https://www.espn.com/soccer/story/_/id/50156935/liverpool-fans-welcome-manchester-city-anfield-premier-league-guilty-verdict-cheating-scandal",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50156935/liverpool-fans-welcome-manchester-city-anfield-premier-league-guilty-verdict-cheating-scandal",
+          "published_at": "2026-10-11T22:40:01+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "needs_review",
+      "agent_reason": "Bài báo xác nhận sự kiện thuộc Premier League và mô tả rõ ràng.",
+      "agent_confidence": 0.9,
+      "agent_sources_read": [
+        "https://www.espn.com/soccer/story/_/id/50156935/liverpool-fans-welcome-manchester-city-anfield-premier-league-guilty-verdict-cheating-scandal"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/50156935/liverpool-fans-welcome-manchester-city-anfield-premier-league-guilty-verdict-cheating-scandal",
+          "ok": true,
+          "characters_read": 3504,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "Liverpool chào mừng Man City",
+        "Sự kiện Premier League",
+        "Tin chưa được xác nhận"
+      ],
+      "agent_researched_at": "2026-10-12T06:34:17.274420+00:00",
+      "generated_script": "Liverpool chào mừng Man City\nSự kiện Premier League\nTin chưa được xác nhận",
+      "ai_review_status": "needs_review",
+      "ai_review_notes": "Dòng chữ 'Án phạt và phản ứng' không được đề cập trong tóm tắt hoặc ghi chú, có thể không căn cứ vào script_to_review",
+      "script_generated_at": "2026-10-12T06:34:56.788219+00:00",
+      "script_review_attempts": 2,
+      "script_approved": false,
+      "agent_step": "script_review",
+      "agent_last_attempt_at": "2026-10-12T06:34:56.788233+00:00"
+    },
+    {
+      "story_id": "story-6cd7b2b80178",
+      "title": "Clinical Spain show USWNT what it takes to be world champions",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50151578/clinical-spain-show-uswnt-takes-world-champions",
+          "published_at": "2026-10-11T22:25:46+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-80b38ab37768",
+      "title": "Aston Villa planning Endrick move - Monday's gossip",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": true,
+      "review_status": "uncertain",
+      "summary_vi": "Aston Villa đang xem xét chiêu mộ Endrick",
+      "evidence_notes": "Nguồn đưa tin về việc Aston Villa muốn chiêu mộ Endrick, nhưng không xác nhận rõ ràng. Tin đồn chưa được xác nhận.\n\nNguồn agent đã đọc:\n- BBC Sport: https://www.bbc.co.uk/sport/football/articles/c5gm01j87jl7o?at_medium=RSS&at_campaign=rss",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c5gm01j87jl7o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T21:32:39+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0,
+      "agent_status": "complete",
+      "agent_reason": "Thông tin chưa được xác nhận rõ ràng, chỉ là tin đồn.",
+      "agent_confidence": 0.5,
+      "agent_sources_read": [
+        "https://www.bbc.co.uk/sport/football/articles/c5gm01j87jl7o?at_medium=RSS&at_campaign=rss"
+      ],
+      "agent_tool_log": [
+        {
+          "url": "https://www.bbc.co.uk/sport/football/articles/c5gm01j87jl7o?at_medium=RSS&at_campaign=rss",
+          "ok": true,
+          "characters_read": 1663,
+          "error": ""
+        }
+      ],
+      "video_lines": [
+        "Aston Villa đang xem xét chiêu mộ Endrick",
+        "Tin đồn chưa được xác nhận",
+        "Các đội khác cũng quan tâm đến cầu thủ này"
+      ],
+      "agent_researched_at": "2026-10-12T06:36:02.959054+00:00",
+      "generated_script": "Aston Villa đang xem xét chiêu mộ Endrick\nTin đồn chưa được xác nhận\nCác đội khác cũng quan tâm đến cầu thủ này",
+      "ai_review_status": "pass",
+      "ai_review_notes": "Không phát hiện lỗi rõ ràng trong các dòng chữ, phù hợp với tóm tắt và trạng thái uncertain",
+      "script_generated_at": "2026-10-12T06:36:30.869258+00:00",
+      "script_review_attempts": 1,
+      "agent_step": "complete",
+      "image_path": "/home/chinghia/Ytb_Short/prototype/output/generated/videos/media/story-80b38ab37768_image.png",
+      "image_credit": "Ảnh: BBC Sport · nguồn tin",
+      "image_license_url": "",
+      "image_page_url": "https://www.bbc.co.uk/sport/football/articles/c5gm01j87jl7o?at_medium=RSS&at_campaign=rss",
+      "image_title": "Ảnh bài viết - BBC Sport",
+      "image_changes": "Ảnh từ bài viết nguồn, đã cắt theo tỷ lệ dọc và phủ chữ tóm tắt/credit.",
+      "music_path": "/home/chinghia/Ytb_Short/prototype/output/generated/videos/media/background_music_1d86950ddd41.mp3",
+      "music_credit": "Nhạc: Kevin MacLeod · CC BY 3.0",
+      "music_license_url": "https://creativecommons.org/licenses/by/3.0",
+      "music_page_url": "https://commons.wikimedia.org/wiki/File:Pixel_Peeker_Polka_-_slower_(ISRC_USUAN1100832).mp3",
+      "music_title": "File:Pixel Peeker Polka - slower (ISRC USUAN1100832).mp3",
+      "script_approved": true,
+      "script_approval_method": "llm_agent",
+      "script_approved_at": "2026-10-12T06:36:43.159662+00:00",
+      "video_path": "/home/chinghia/Ytb_Short/prototype/output/generated/videos/story-80b38ab37768.mp4",
+      "video_url": "/api/videos/story-80b38ab37768.mp4",
+      "credits_url": "/api/videos/story-80b38ab37768_credits.txt",
+      "video_created_at": "2026-10-12T06:36:47.921227+00:00",
+      "agent_last_attempt_at": "2026-10-12T06:36:47.921249+00:00"
+    },
+    {
+      "story_id": "story-bba858c7c4aa",
+      "title": "Arsenal fight back to win as Premier League resumes",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50147075/arsenal-beat-leeds-premier-league-resumes-cloud-manchester-city-guilty-verdict",
+          "published_at": "2026-10-11T21:17:26+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-de86f7a31721",
+      "title": "Man United should've beaten Spurs. Not doing so shows how much trouble Carrick & Co. are in",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "ESPN Soccer",
+          "publisher": "ESPN",
+          "source_url": "https://www.espn.com/soccer/story/_/id/50150239/manchester-united-shouldve-beaten-tottenham-not-doing-shows-how-much-trouble-michael-carrick-co-in",
+          "published_at": "2026-10-11T21:17:25+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-782c90251acb",
+      "title": "Man City's statement win has feeling of irrelevance with season in limbo",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cmy0rd4pex7no?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T20:02:27+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-7fc9a9a42911",
+      "title": "Winless and an 'easy touch' - what's happened to the Anfield fear factor?",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/ck5yn20wej62o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T19:41:17+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-83152e0be691",
+      "title": "Football Daily",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sounds/play/p0pg61sx?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T19:39:00+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-94c4bbfe7969",
+      "title": "Doku delights as Manchester City cruise past 10-man Liverpool",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c6vgy2ll1zypo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T18:59:19+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-8ba6ec5d9296",
+      "title": "Hull continue good start with entertaining Everton draw",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c61mvdy2mdx9o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T18:59:04+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-29bf77f0b6c9",
+      "title": "Glasner suffers loss on Selhurst return as Palace beat Forest",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cwz0zkj27greo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T18:59:02+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-685f49f96e69",
+      "title": "'I didn't like the refereeing' - Iraola unhappy with Gravenberch red",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cj20v49vd4zro?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T18:46:34+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-b5d8defdd803",
+      "title": "'We deal with the noise' - Maresca 'proud' after Man City win",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cm62yzw2175yo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T18:38:31+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-32980cb55a79",
+      "title": "Burnham to release details of Man City meetings",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c962y5nd273no?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T18:01:13+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-9c75ce841baf",
+      "title": "Who 'simply has to do better'? Liverpool v Man City player ratings",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/ck87z1jjynyqo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T17:30:19+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-05696e93cb89",
+      "title": "Jota comeback helps Celtic lift gloom in strong response",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cqwy7nr5lry0o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T16:55:21+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-a0f8fc60d545",
+      "title": "Reaction as Celtic bounce back and Aberdeen flounder",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sounds/play/p0pg5m3j?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T16:45:00+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-09a1b5885aaf",
+      "title": "Hughes focused on Albania before World Cup dream",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cq1m4ngv99mvo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T16:08:42+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-242e0454d1d5",
+      "title": "Sharp retires after incredible 22-year career",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cw7vpzzj0502o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T10:49:39+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-5b7e9277520a",
+      "title": "Elton John 'upset and disappointed' with Watford form",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cw3dj8802lnvo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T10:38:00+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-7e685dcd822c",
+      "title": "Russo named England player of the year",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/ckgel112lr1qo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T10:35:31+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-3ea569324f80",
+      "title": "Top five Liverpool-Man City moments",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cqvg0m1my97go?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T05:37:52+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-8df873396ece",
+      "title": "Toxicity and uncertainty await Man City - will their season even matter?",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cvy0rp14xz7lo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-11T05:27:03+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-f2e5970b6bb8",
+      "title": "'Absolutely superb' - How Caicedo proved pivotal in Chelsea win",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cmx2dp7xgew6o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T23:00:14+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-223682c53164",
+      "title": "Man Utd midfield can't control games - Murphy",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c6lye9kmnvpzo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T22:58:38+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-981264389b92",
+      "title": "'I kissed Rodrigo and said thanks' - De Zerbi 'liked' Spurs red card",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cqn73g3pvezdo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T20:58:39+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-32df7029c2cc",
+      "title": "Boos, anguish & fading belief - 'worrying day' for under-pressure Carrick",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c62e9g09e781o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T20:54:46+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-08694e6becf3",
+      "title": "Patience needed as new boss Reedijk bemoans Hibs 'imprecision'",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cv0ldzdgrlljo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T20:51:03+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-d2bd032e3261",
+      "title": "'Reminds me of Muller' - Naderi proving worth in Rangers revival",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cqzjx3z4ljr0o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T20:03:56+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-8e02a03e4e58",
+      "title": "'Tottenham needs this reaction' - De Zerbi defends Bentancur red",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cq39818v0ekzo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:46:19+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-f109f38cab3f",
+      "title": "'It hurts a lot' - Carrick 'understands' Man Utd boos after draw",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cqlye9evnm7lo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:35:45+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-2790f01c6f43",
+      "title": "Solanke scores in added time as 10-man Spurs draw with Man Utd",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/crz9zdl0g04zo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:24:23+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-2253ae5120ac",
+      "title": "Savage success and statement win for Boro - Sam Parkin's EFL Takeaways",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cw77prgk52zro?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:19:42+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-35010d43122e",
+      "title": "Arbeloa 'doesn't feel fear' but pressure increases after loss",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cqvgrey535n4o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:03:00+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-4fe4120b90a3",
+      "title": "Brentford extend unbeaten start as Ajer secures draw at Aston Villa",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cjwyz50g569zo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:00:33+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-f9f97ffdc3b1",
+      "title": "Struijk sees red but Brighton march on with win against Sunderland",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c6n8m3k7egd9o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:00:17+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-0b8ab30d57bc",
+      "title": "Ipswich produce late fightback to stun winless Fulham",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cw7v42y027gqo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:00:14+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-8461ea5388f5",
+      "title": "Henderson scores twice as five-star Chelsea thrash Bournemouth",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cjy5zxv9qq1po?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:00:12+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-ee8a6d61e12d",
+      "title": "Brilliant Guimaraes goal helps Arsenal fight back to beat Leeds",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c6y4z9lnkz30o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T19:00:08+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-b6c23832ab90",
+      "title": "The rock behind Chelsea's entertainers: Midfield duo key for Blues",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/articles/cw3dj5yx4ej2o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T18:09:37+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-59b423eff98e",
+      "title": "Ronaldo provisionally suspended by Portuguese FA",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cm4g13909lp7o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T17:37:24+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-e11229826116",
+      "title": "Timely recognition or long overdue? How Gross is proving all-time bargain",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cq1j427zze5xo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T17:07:02+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-a9025597c7f7",
+      "title": "Hincapie injury adds to Arsenal issues after Guimaraes rescue act",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c63r5w20ez3do?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T15:44:14+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-4ed7c8e0a96e",
+      "title": "Manager ins and outs - 2026-27",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cd94713djgyo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T15:42:13+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-37d7ba70d66d",
+      "title": "Rayo Vallecano game abandoned after paper plane protest",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cw99zy27x0rro?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T15:04:13+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-dc144e724e86",
+      "title": "Who changed the game? - player ratings for Arsenal v Leeds",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cmx2dpwv02e1o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T13:30:28+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-e296f397c2f5",
+      "title": "Wales hope pattern continues in Albania return",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c8r4y6x4p2lzo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T09:57:38+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-233d0bb1b79f",
+      "title": "Palmer signs new Chelsea contract until 2034",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cwe9lngxzjpno?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T09:51:09+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-1e534393152d",
+      "title": "NI debut 'something I thought had passed' - Elmore",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/ck7vpdz0lnmvo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T09:19:45+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-b4b224563abe",
+      "title": "Delight for Scotland's Cuthbert after long summer of recovery",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cxj0l2d4dp2vo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T08:28:17+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-f04bee4eb25e",
+      "title": "Time to rise? Ranking European football's sleeping giants",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cq5yjyyzd35do?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-10T05:14:17+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-24dd9fce2bcb",
+      "title": "Arteta's conscience clear over Man City charges",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c6d93ql8jvdko?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-09T21:30:52+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-0d8cf82b0c5e",
+      "title": "Greek takeaways: What did we learn from Lionesses' win?",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cwp8g1ry6rjlo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-09T21:15:24+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-4c1703cedd75",
+      "title": "Everton up for sale again - so what next as owners TFG look for a way out?",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c3y0e8n9q4e0o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-09T15:38:59+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-a27275c6298e",
+      "title": "What could Rangers' 2012 case tell us about Man City's uncertain future?",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cx240n2p57y5o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-09T10:04:35+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-f9c47ba2c5b3",
+      "title": "How a folk band, football club and Fifa 11 came together for unlikely anthem",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/news/articles/cq8jz9p2ln9zo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-08T10:51:47+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-cfdad4081dd5",
+      "title": "'Are you accusing me of receiving money?' - what Guardiola has said about charges",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cq2d6l0p6ry0o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-08T08:20:13+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-8b797953ab05",
+      "title": "Working with Iraola, car clauses and hope - the Liverpool academy approach",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cmx2z9z10wezo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-08T07:04:50+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-7e86e5839adc",
+      "title": "Inside the £1-an-hour official football shirt factories",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cx2lggyz2wgo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-08T05:48:17+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-a765e7ff37a9",
+      "title": "All done deals in September & October 2026",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cvgyxyxplkvo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-07T19:45:58+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-8a28791bc3a1",
+      "title": "Why is Croatia v England behind closed doors?",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/ck0e3edj2l4zo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-10-01T16:59:08+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-009698c8deba",
+      "title": "How much money do clubs get for Nations League players?",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cvj64l3xyzlyo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-30T13:47:34+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-feb9c630463f",
+      "title": "The part-timers who won three Wembley finals in a row",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c6y4z21xelk4o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-30T06:07:28+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-a093964ceb3c",
+      "title": "How does Cas work and why can't Man City appeal to it?",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c920v34y4l2zo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-28T14:43:05+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-d4bda69fc7c9",
+      "title": "Why are Northern Ireland playing Ukraine in Slovakia?",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/ck624vw423z6o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-26T08:27:09+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-4cbf53fa2d8b",
+      "title": "'I persuaded my club to give me a job as a content creator'",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/bitesize/articles/zgv7dnb?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-25T10:15:00+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-b0fe25c76770",
+      "title": "Ever wondered what it's like to work on Match of the Day?",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/bitesize/articles/zk64b7h?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-24T10:28:27+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-dc85f11e65c7",
+      "title": "'My job combines my passion for gaming and football'",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/bitesize/articles/zxhkrmn?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-23T11:17:47+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-bc6676b72a56",
+      "title": "Who has scored against the most Premier League teams?",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cmwyzk1jq35go?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-22T09:30:39+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-5daa0ec94ed6",
+      "title": "Ten unusual jobs in football",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/bitesize/articles/z8t4b7h?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-21T20:12:31+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-e0c5904d6c40",
+      "title": "'Who would be a goalkeeper?' - Hart on Martinez own goal",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cm74kdn054j9o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-20T23:09:47+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-df443138aca6",
+      "title": "'I think he's a genius' - Hart hails Cherki strike",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cqkgwpr44re0o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-20T23:09:44+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-f24cb206aece",
+      "title": "Cunha's late strike denies Fulham first league win of season",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cqpve80lwem9o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-20T19:00:29+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-3c2afe3a4f45",
+      "title": "Man City beat Sunderland in eight-goal thriller to go three points clear",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cmq5x78j0y1lo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-20T19:00:25+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-ddf2645d1b97",
+      "title": "Liverpool boss Iraola makes winning return to Bournemouth",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cmp3k277095do?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-20T19:00:21+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-23f2b227f977",
+      "title": "Leeds continue unbeaten start in league with draw against Palace",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c39w4nydl1dzo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-20T19:00:17+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-2f32b97a0da1",
+      "title": "Coventry earn first points of season in dramatic win over Forest",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cmly4g0rqzwwo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-19T19:14:53+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-6301e43c1407",
+      "title": "Everton's unbeaten run continues with win over 10-man Ipswich",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cmvgy397e5qzo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-19T19:00:21+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-dfbc10f38d3d",
+      "title": "Newcastle hold off Hull at St James' Park",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/ckrer0yl0qjjo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-19T19:00:14+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-4cdd47c9f0e9",
+      "title": "Brighton cruise past Arsenal to end champions' perfect start",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cvde048j71rdo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-19T19:00:09+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-0f42e7bb7e80",
+      "title": "Spurs lose again as Villa hold on for first league win",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c3j4jz7pgq5lo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-19T19:00:02+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-6df724dc5f4a",
+      "title": "Brentford stay unbeaten as they put three past Chelsea",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/cx980qll9me8o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-18T22:00:19+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-6de6d8fb10fd",
+      "title": "A team that offered hope... then, four months later, Hamas attacked Israel",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cp3rl709p7xo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-17T05:23:59+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-9f083246e54e",
+      "title": "Leeds inflict heavy defeat on Newcastle to climb to third",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/videos/c8d3el7mvypo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-14T21:31:59+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-f0307d03e1e6",
+      "title": "Arsenal had more than 20 players on shortlist to capitalise on title win",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cz7z09v9pp1o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-05T19:08:30+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-07d3c0d35929",
+      "title": "73 goals from dropping deep - we ask Kane to break down how he did it",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/articles/cx2z7rjn2p2o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-04T09:31:21+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-bbd1f51c83bc",
+      "title": "How to become a football referee",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/bitesize/articles/z84w9ty?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-09-01T10:01:04+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-ca7dfb7ac828",
+      "title": "Life as a Wag in the transfer window",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cx2jpgj24vlo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-08-08T05:15:34+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-f7becd09f3ed",
+      "title": "A secret invite and other 'pinch-me' moments before Leicester woke up",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/cy7j72nvzmzo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-08-07T12:41:51+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-8369427d97fe",
+      "title": "The summer that changed Welsh football",
+      "competition_candidate": "unknown",
+      "scope_status": "needs_scope_review",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Football",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/ced4lq94ldvo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-08-04T05:17:17+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-551520b968e6",
+      "title": "Find out more here",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/ce8e6y90g2jo?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-06-08T10:33:57+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    },
+    {
+      "story_id": "story-50a82d5d5141",
+      "title": "Get in touch here",
+      "competition_candidate": "Premier League",
+      "scope_status": "feed_or_entity_match_needs_confirmation",
+      "competition_confirmed": false,
+      "review_status": "unreviewed",
+      "summary_vi": "",
+      "evidence_notes": "",
+      "sources": [
+        {
+          "source_name": "BBC Premier League",
+          "publisher": "BBC Sport",
+          "source_url": "https://www.bbc.co.uk/sport/football/articles/c2kz4j293v2o?at_medium=RSS&at_campaign=rss",
+          "published_at": "2026-06-08T10:14:49+00:00"
+        }
+      ],
+      "source_count": 1,
+      "article_count": 1,
+      "cluster_method": "url_or_headline_similarity",
+      "cluster_similarity": 0.0
+    }
+  ]
+}

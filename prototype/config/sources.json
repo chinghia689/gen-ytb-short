@@ -1,0 +1,80 @@
+{
+  "target_competition": "Premier League",
+  "rss_usage": "discovery_metadata_and_source_links_only",
+  "epl_entities": [
+    "Arsenal", "Aston Villa", "AFC Bournemouth", "Bournemouth", "Brentford",
+    "Brighton & Hove Albion", "Brighton", "Chelsea", "Coventry City",
+    "Crystal Palace", "Everton", "Fulham", "Hull City", "Hull", "Ipswich Town",
+    "Ipswich", "Leeds United", "Leeds", "Liverpool", "Manchester City", "Man City",
+    "Manchester United", "Man Utd", "Newcastle United", "Nottingham Forest",
+    "Sunderland", "Tottenham Hotspur", "Spurs"
+  ],
+  "sources": [
+    {
+      "name": "BBC Football",
+      "publisher": "BBC Sport",
+      "type": "rss",
+      "url": "https://feeds.bbci.co.uk/sport/football/rss.xml",
+      "language": "en",
+      "trust_score": 0.95,
+      "enabled": true,
+      "scope": "all_football",
+      "article_hosts": ["www.bbc.co.uk", "bbc.co.uk", "www.bbc.com", "bbc.com"],
+      "image_hosts": ["ichef.bbci.co.uk"]
+    },
+    {
+      "name": "BBC Premier League",
+      "publisher": "BBC Sport",
+      "type": "rss",
+      "url": "https://feeds.bbci.co.uk/sport/football/premier-league/rss.xml",
+      "language": "en",
+      "trust_score": 0.95,
+      "enabled": true,
+      "scope": "premier_league",
+      "article_hosts": ["www.bbc.co.uk", "bbc.co.uk", "www.bbc.com", "bbc.com"],
+      "image_hosts": ["ichef.bbci.co.uk"]
+    },
+    {
+      "name": "Guardian Football",
+      "publisher": "The Guardian",
+      "type": "rss",
+      "url": "https://www.theguardian.com/football/rss",
+      "language": "en",
+      "trust_score": 0.94,
+      "enabled": false,
+      "scope": "all_football",
+      "note": "Chỉ bật sau khi xác nhận quyền sử dụng thương mại; điều khoản RSS nêu mục đích cá nhân, phi thương mại."
+    },
+    {
+      "name": "Guardian Transfer",
+      "publisher": "The Guardian",
+      "type": "rss",
+      "url": "https://www.theguardian.com/football/transfer-window/rss",
+      "language": "en",
+      "trust_score": 0.93,
+      "enabled": false,
+      "scope": "all_football",
+      "note": "Chỉ bật sau khi xác nhận quyền sử dụng thương mại; điều khoản RSS nêu mục đích cá nhân, phi thương mại."
+    },
+    {
+      "name": "ESPN Soccer",
+      "publisher": "ESPN",
+      "type": "rss",
+      "url": "https://www.espn.com/espn/rss/soccer/news",
+      "language": "en",
+      "trust_score": 0.94,
+      "enabled": true,
+      "scope": "all_football",
+      "article_hosts": ["www.espn.com", "espn.com"],
+      "image_hosts": ["a.espncdn.com", "a4.espncdn.com"],
+      "note": "Dùng để phát hiện bài và trỏ về nguồn; tuân thủ điều khoản RSS của ESPN."
+    }
+  ],
+  "demo_sources": {
+    "Nguồn mẫu A": 26,
+    "Nguồn mẫu B": 22,
+    "Nguồn tin đồn mẫu": 8,
+    "Nguồn mẫu C": 20,
+    "Nguồn mẫu D": 15
+  }
+}
