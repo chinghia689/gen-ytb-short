@@ -6,4 +6,8 @@ __pycache__/
 node_modules/
 dist/
 prototype/output/generated/
+prototype/output/drafts.md
+prototype/data/live_news.json
+prototype/data/review_queue.json
+prototype/data/stories.json
 prototype/data/youtube_oauth_token.json

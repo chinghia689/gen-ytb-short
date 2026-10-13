@@ -19,7 +19,6 @@ def _ollama_chat(story: dict[str, Any], instruction: str, *, json_output: bool =
         "editor_status": story.get("review_status", ""),
         "competition_confirmed": story.get("competition_confirmed") is True,
         "script_to_review": story.get("script_to_review", ""),
-        "script_revision_notes": story.get("script_revision_notes", ""),
         "video_lines": story.get("video_lines", []),
     }
     payload: dict[str, Any] = {
@@ -77,6 +76,30 @@ def write_video_lines(story: dict[str, Any], revision_notes: str = "") -> list[s
     if len(lines) != 3:
         raise ValueError("Qwen cần tạo đúng 3 dòng tóm tắt video.")
     return lines
+
+
+def translate_video_lines_en(story: dict[str, Any], lines: list[str]) -> list[str]:
+    if len(lines) != 3 or any(not str(line).strip() for line in lines):
+        raise ValueError("Cần đúng 3 dòng tiếng Việt để dịch sang tiếng Anh.")
+    translation_story = {**story, "video_lines": lines}
+    instruction = (
+        "Translate the three Vietnamese video lines into concise, natural English. "
+        "Preserve the exact meaning, names, figures, and uncertainty; do not add facts or omit important qualifiers. "
+        "Keep each English line under 48 characters so it fits on a vertical video. "
+        'Return only valid JSON in this schema: {"video_lines_en":["...","...","..."]}.'
+    )
+    raw = _ollama_chat(translation_story, instruction, json_output=True)
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError("Qwen không trả JSON hợp lệ cho bản dịch tiếng Anh.") from exc
+    translated = parsed.get("video_lines_en") if isinstance(parsed, dict) else None
+    if not isinstance(translated, list):
+        raise ValueError("Qwen không trả danh sách video_lines_en.")
+    translated = [str(line).strip() for line in translated]
+    if len(translated) != 3 or any(not line or len(line) > 48 for line in translated):
+        raise ValueError("Bản dịch tiếng Anh cần có đúng 3 dòng, mỗi dòng tối đa 48 ký tự.")
+    return translated
 
 
 def review_video_text(story: dict[str, Any], video_text: str) -> dict[str, str]:

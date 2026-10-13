@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 
 from prototype.agent.newsroom import run_newsroom_agent
 from prototype.agent.media import acquire_story_media
-from prototype.content.ai_writer import review_video_text, write_video_lines
+from prototype.content.ai_writer import review_video_text, translate_video_lines_en, write_video_lines
 from prototype.publishing import youtube as youtube_publishing
 from prototype.review.queue import load_approved_stories
 from prototype.scripts.drafts import render_drafts
@@ -343,7 +343,8 @@ def update_story(story_id: str, update: StoryReviewUpdate):
     target.pop("video_created_at", None)
     target.pop("credits_url", None)
     for key in ("image_path", "music_path", "image_credit", "image_license_url", "image_page_url",
-                "image_title", "image_changes", "music_credit", "music_license_url", "music_page_url", "music_title"):
+                "image_title", "image_changes", "music_provider", "music_credit", "music_attribution",
+                "music_license_url", "music_page_url", "music_title"):
         target.pop(key, None)
     write_queue(queue)
     return {"story": target, "counts": _counts(queue.get("stories", []))}
@@ -467,6 +468,7 @@ def create_story_video(story_id: str):
         def set_media_step(step: str) -> None:
             story["agent_step"] = step
 
+        story["video_lines_en"] = translate_video_lines_en(story, lines)
         story.update(acquire_story_media(story, VIDEO_DIR, on_step=set_media_step))
         story["agent_step"] = "video_render"
         video_path = render_video(story, VIDEO_DIR)

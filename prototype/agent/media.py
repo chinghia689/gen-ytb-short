@@ -3,19 +3,22 @@ from __future__ import annotations
 import html
 import hashlib
 import json
-import os
 import random
 import re
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Callable
-from urllib.parse import quote, urljoin, urlsplit
+from urllib.parse import urljoin, urlsplit
 
 import httpx
 from PIL import Image
 
 
-COMMONS_API = "https://commons.wikimedia.org/w/api.php"
+NCS_CATALOG_URL = "https://ncs.io/?display=list&page={page}"
+NCS_TRACK_HOST = "ncsmusic.s3.eu-west-1.amazonaws.com"
+NCS_POLICY_URL = "https://ncs.io/usage-policy"
 MAX_MEDIA_BYTES = 30_000_000
 SOURCE_CONFIG = Path(__file__).resolve().parents[1] / "config" / "sources.json"
 
@@ -35,6 +38,175 @@ class _ArticleImageParser(HTMLParser):
                 self.candidates.append(values.get("content", ""))
         elif tag.casefold() == "img":
             self.candidates.append(values.get("src") or values.get("data-src") or "")
+
+
+class _NCSTrackParser(HTMLParser):
+    """Extract official NCS download metadata from one music-library page."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.tracks: list[dict[str, str]] = []
+        self.current: dict[str, str] | None = None
+        self.total_pages = 1
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {key.casefold(): value or "" for key, value in attrs}
+        if tag.casefold() == "a":
+            href = html.unescape(values.get("href", ""))
+            page_match = re.search(r"[?&]page=(\d+)", href)
+            if page_match:
+                self.total_pages = max(self.total_pages, int(page_match.group(1)))
+        if tag.casefold() == "tr":
+            self.current = {}
+        if tag.casefold() == "a" and self.current is not None:
+            classes = set(values.get("class", "").split())
+            if "player-play" in classes and values.get("data-url"):
+                self.current.update({
+                    "download_url": html.unescape(values["data-url"]),
+                    "file_title": html.unescape(values.get("data-track", "")).strip(),
+                    "artist": html.unescape(values.get("data-artistraw", "")).strip(),
+                    "track_id": values.get("data-tid", "").strip(),
+                })
+            elif href.startswith("/") and not href.startswith(("/artist/", "/music-search", "/genre/")):
+                if not self.current.get("track_slug"):
+                    self.current["track_slug"] = href.strip("/")
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.casefold() == "tr" and self.current is not None:
+            required = ("download_url", "file_title", "artist", "track_id", "track_slug")
+            if all(self.current.get(key) for key in required):
+                self.tracks.append(self.current)
+            self.current = None
+
+
+def _fetch_ncs_catalog_page(page: int) -> tuple[int, str]:
+    response = httpx.get(
+        NCS_CATALOG_URL.format(page=page),
+        headers={"User-Agent": "YtbShortNewsPrototype/0.3 (NCS catalog reader)"},
+        timeout=httpx.Timeout(25.0, connect=8.0),
+        follow_redirects=False,
+    )
+    response.raise_for_status()
+    if "text/html" not in response.headers.get("content-type", "").casefold():
+        raise ValueError("NCS trả về nội dung không phải HTML cho danh mục nhạc.")
+    return page, response.text
+
+
+def _ncs_catalog(media_dir: Path) -> list[dict[str, str]]:
+    """Cache the complete NCS catalog and download only the randomly selected track."""
+    cache_path = media_dir / "ncs_music_catalog.json"
+    if cache_path.is_file():
+        try:
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            age_seconds = time.time() - float(cached.get("updated_at", 0))
+            items = cached.get("tracks", [])
+            if age_seconds < 24 * 60 * 60 and isinstance(items, list) and items:
+                return items
+        except (OSError, ValueError, TypeError, json.JSONDecodeError, AttributeError):
+            pass
+
+    pages: dict[int, str] = {}
+    try:
+        _, first_page = _fetch_ncs_catalog_page(1)
+        pages[1] = first_page
+        first_parser = _NCSTrackParser()
+        first_parser.feed(first_page)
+        page_count = min(max(first_parser.total_pages, 1), 500)
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            futures = [executor.submit(_fetch_ncs_catalog_page, page) for page in range(2, page_count + 1)]
+            for future in as_completed(futures):
+                try:
+                    page_number, page_html = future.result()
+                    pages[page_number] = page_html
+                except (httpx.HTTPError, ValueError):
+                    continue
+    except (httpx.HTTPError, ValueError) as exc:
+        if cache_path.is_file():
+            try:
+                stale = json.loads(cache_path.read_text(encoding="utf-8"))
+                tracks = stale.get("tracks", [])
+                if isinstance(tracks, list) and tracks:
+                    return tracks
+            except (OSError, json.JSONDecodeError, AttributeError):
+                pass
+        raise ValueError(f"Không tải được danh mục nhạc chính thức của NCS: {exc}") from exc
+
+    if len(pages) != page_count:
+        if cache_path.is_file():
+            try:
+                stale = json.loads(cache_path.read_text(encoding="utf-8"))
+                tracks = stale.get("tracks", [])
+                if isinstance(tracks, list) and tracks:
+                    return tracks
+            except (OSError, json.JSONDecodeError, AttributeError):
+                pass
+        raise ValueError(f"Danh mục NCS tải chưa đủ trang ({len(pages)}/{page_count}); hãy thử render lại.")
+
+    tracks_by_id: dict[str, dict[str, str]] = {}
+    for page_html in pages.values():
+        parser = _NCSTrackParser()
+        parser.feed(page_html)
+        for item in parser.tracks:
+            download_url = urlsplit(item["download_url"])
+            if (download_url.scheme != "https" or download_url.hostname != NCS_TRACK_HOST
+                    or not download_url.path.startswith("/tracks/")):
+                continue
+            slug = item["track_slug"]
+            item.update({
+                "provider": "NCS",
+                "license": "NCS Usage Policy",
+                "license_url": NCS_POLICY_URL,
+                "file_page_url": f"https://ncs.io/{slug}",
+                "music_attribution": (
+                    f"Song: {item['artist']} - {item['file_title']}\n"
+                    "Music provided by NoCopyrightSounds\n"
+                    f"Free Download/Stream: http://ncs.io/{slug}\n"
+                    f"Watch: http://ncs.lnk.to/{slug}AT/youtube"
+                ),
+            })
+            tracks_by_id[item["track_id"]] = item
+    tracks = list(tracks_by_id.values())
+    if not tracks:
+        raise ValueError("Không tìm thấy track có thể tải trong danh mục chính thức của NCS.")
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = cache_path.with_suffix(".tmp")
+    temp_path.write_text(
+        json.dumps({"updated_at": time.time(), "tracks": tracks}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    temp_path.replace(cache_path)
+    return tracks
+
+
+def _download_ncs_audio(url: str, path: Path) -> None:
+    parsed = urlsplit(url)
+    if (parsed.scheme != "https" or parsed.hostname != NCS_TRACK_HOST
+            or parsed.username or parsed.password or parsed.port not in {None, 443}
+            or not parsed.path.startswith("/tracks/")):
+        raise ValueError("NCS trả về URL tải nhạc không hợp lệ.")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = path.with_suffix(path.suffix + ".tmp")
+    total = 0
+    try:
+        with httpx.stream(
+            "GET", url,
+            headers={"User-Agent": "YtbShortNewsPrototype/0.3 (NCS track download)"},
+            timeout=30.0,
+            follow_redirects=False,
+        ) as response:
+            response.raise_for_status()
+            content_type = response.headers.get("content-type", "").split(";", 1)[0].casefold()
+            if not content_type.startswith("audio/"):
+                raise ValueError(f"Track NCS không trả về audio: {content_type or 'không rõ'}.")
+            with temp_path.open("wb") as output:
+                for chunk in response.iter_bytes():
+                    total += len(chunk)
+                    if total > MAX_MEDIA_BYTES:
+                        raise ValueError("Track NCS vượt giới hạn tải 30 MB.")
+                    output.write(chunk)
+        temp_path.replace(path)
+    finally:
+        temp_path.unlink(missing_ok=True)
 
 
 def _source_hosts() -> tuple[set[str], set[str]]:
@@ -134,342 +306,6 @@ def _save_publisher_image(image: dict[str, Any], path: Path) -> None:
         temp_path.unlink(missing_ok=True)
 
 
-def _user_agent() -> str:
-    contact = os.getenv("WIKIMEDIA_CONTACT", "").strip()
-    if not contact:
-        raise ValueError(
-            "Thiếu WIKIMEDIA_CONTACT. Hãy thêm email hoặc URL liên hệ của bạn vào file .env "
-            "rồi khởi động lại backend trước khi tìm ảnh/nhạc Wikimedia."
-        )
-    return f"FootballNewsroomAgent/0.6 ({contact}) httpx/{httpx.__version__}"
-
-
-def _plain(value: Any) -> str:
-    text = str(value or "")
-    text = re.sub(r"<[^>]*>", " ", text)
-    return " ".join(html.unescape(text).split())
-
-
-def _license_ok(short_name: str, url: str) -> bool:
-    name = (short_name + " " + url).casefold()
-    if any(term in name for term in ("noncommercial", "non-commercial", "no derivatives", "no-derivatives", "nc-", "nd-", "by-nc", "by-nd")):
-        return False
-    if "public domain" in name or "creativecommons.org/publicdomain" in name or "cc0" in name:
-        return True
-    is_by = "cc by" in name or "creativecommons.org/licenses/by/" in name
-    is_sharealike = "share alike" in name or "share-alike" in name or "by-sa" in name
-    return is_by and not is_sharealike
-
-
-def _search_commons(query: str, file_type: str, limit: int = 50) -> list[dict[str, Any]]:
-    params = {
-        "action": "query",
-        "generator": "search",
-        "gsrnamespace": 6,
-        "gsrsearch": f"filetype:{file_type} {query}",
-        "gsrlimit": min(limit, 50),
-        "prop": "imageinfo",
-        "iiprop": "url|mime|extmetadata|mediatype",
-        "iiurlwidth": 1600,
-        "format": "json",
-        "formatversion": 2,
-    }
-    response = httpx.get(
-        COMMONS_API,
-        params=params,
-        headers={"User-Agent": _user_agent(), "Api-User-Agent": _user_agent(), "Accept": "application/json"},
-        timeout=25.0,
-    )
-    try:
-        response.raise_for_status()
-    except httpx.HTTPStatusError as exc:
-        if response.status_code == 403:
-            detail = _plain(response.text)[:400]
-            raise ValueError(
-                "Wikimedia Commons từ chối API (403). Xác nhận WIKIMEDIA_CONTACT trong .env là email "
-                "hoặc URL liên hệ hợp lệ và backend đã được khởi động lại. Nếu đã đúng, kiểm tra giới hạn "
-                f"truy cập hoặc firewall/IP mạng. Phản hồi: {detail or 'không có nội dung'}"
-            ) from exc
-        raise
-    pages = response.json().get("query", {}).get("pages", [])
-    if isinstance(pages, dict):
-        pages = list(pages.values())
-    return pages if isinstance(pages, list) else []
-
-
-def _search_music(query: str, limit: int = 50) -> list[dict[str, Any]]:
-    return _search_commons(query, "audio", limit)
-
-
-def _music_metadata(page: dict[str, Any]) -> dict[str, Any] | None:
-    info_list = page.get("imageinfo") or []
-    if not info_list:
-        return None
-    info = info_list[0]
-    ext = info.get("extmetadata") or {}
-    license_name = _plain((ext.get("LicenseShortName") or {}).get("value"))
-    license_url = _plain((ext.get("LicenseUrl") or {}).get("value"))
-    artist = _plain((ext.get("Artist") or {}).get("value")) or _plain((ext.get("Credit") or {}).get("value"))
-    mime = str(info.get("mime", ""))
-    if (mime not in {"audio/mpeg", "audio/ogg", "audio/wav", "audio/x-wav", "audio/flac"}
-            or not _license_ok(license_name, license_url) or not license_url or not artist):
-        return None
-    return {
-        "file_title": page.get("title", ""),
-        "file_page_url": "https://commons.wikimedia.org/wiki/" + str(page.get("title", "")).replace(" ", "_"),
-        "download_url": info.get("url", ""),
-        "mime": mime,
-        "artist": artist,
-        "license": license_name,
-        "license_url": license_url,
-    }
-
-
-def _image_metadata(page: dict[str, Any]) -> dict[str, Any] | None:
-    info_list = page.get("imageinfo") or []
-    if not info_list:
-        return None
-    info = info_list[0]
-    ext = info.get("extmetadata") or {}
-    license_name = _plain((ext.get("LicenseShortName") or {}).get("value"))
-    license_url = _plain((ext.get("LicenseUrl") or {}).get("value"))
-    artist = _plain((ext.get("Artist") or {}).get("value")) or _plain((ext.get("Credit") or {}).get("value"))
-    download_url = _commons_media_url(info.get("thumburl")) or _commons_media_url(info.get("url"))
-    mime = str(info.get("thumbmime") or info.get("mime", "")).casefold()
-    if info.get("thumburl") and not info.get("thumbmime"):
-        suffix = Path(urlsplit(str(download_url)).path).suffix.casefold()
-        mime = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}.get(suffix, mime)
-    if (mime not in {"image/jpeg", "image/png", "image/webp"}
-            or not _license_ok(license_name, license_url) or not license_url or not artist or not download_url):
-        return None
-    title = str(page.get("title", ""))
-    return {
-        "file_title": title,
-        "file_page_url": "https://commons.wikimedia.org/wiki/" + quote(title.replace(" ", "_"), safe=":/_"),
-        "download_url": str(download_url),
-        "mime": mime,
-        "artist": artist,
-        "license": license_name,
-        "license_url": license_url,
-    }
-
-
-IMAGE_STOPWORDS = {
-    "about", "after", "against", "before", "being", "could", "first", "from", "have",
-    "into", "league", "more", "over", "premier", "record", "records", "said", "says", "their", "there",
-    "these", "they", "this", "three", "through", "under", "what", "when", "where", "which", "while",
-    "with", "wins", "world", "would", "the", "and", "for", "was", "were", "has", "had", "his", "her",
-    "new", "all", "one", "two", "top", "man", "men", "women", "teenager", "football", "soccer", "club", "team",
-    "tin", "anh", "đội", "bóng", "người", "mới", "nhất", "được", "với", "của", "trong", "khi",
-}
-
-
-def _image_query_terms(story: dict[str, Any]) -> tuple[list[str], list[str]]:
-    title_tokens = re.findall(r"[^\W_]{3,}", str(story.get("title", "")).casefold(), flags=re.UNICODE)
-    text_tokens = re.findall(
-        r"[^\W_]{3,}",
-        " ".join((str(story.get("summary_vi", "")), str(story.get("evidence_notes", "")))).casefold(),
-        flags=re.UNICODE,
-    )
-    distinctive = list(dict.fromkeys(token for token in title_tokens if token not in IMAGE_STOPWORDS))
-    weighted = list(dict.fromkeys(token for token in title_tokens + text_tokens if token not in IMAGE_STOPWORDS))
-    return weighted, distinctive
-
-
-def _pick_story_image(story: dict[str, Any]) -> dict[str, Any]:
-    terms, distinctive = _image_query_terms(story)
-    if not terms:
-        raise ValueError("Story chưa có từ khóa để tìm ảnh liên quan.")
-    queries: list[str] = []
-    first_title_term = next(iter(distinctive), "")
-    for candidate in (terms[:5], terms[:3], terms[:2], [first_title_term] if first_title_term else []):
-        query = " ".join(candidate).strip()
-        if query and query not in queries:
-            queries.append(query)
-
-    tried: set[str] = set()
-    for query in queries:
-        candidates = []
-        for page in _search_commons(query, "bitmap"):
-            title = str(page.get("title", ""))
-            if title in tried:
-                continue
-            tried.add(title)
-            asset = _image_metadata(page)
-            if not asset:
-                continue
-            searchable = (title + " " + _plain((page.get("imageinfo") or [{}])[0].get("extmetadata", {}).get("ImageDescription", {}).get("value", ""))).casefold()
-            hits = [term for term in terms if term in searchable]
-            distinct_hits = [term for term in distinctive if term in searchable]
-            if not hits or (distinctive and not distinct_hits):
-                continue
-            candidates.append((len(hits) + 2 * len(distinct_hits), asset))
-        if candidates:
-            return max(candidates, key=lambda item: item[0])[1]
-    raise ValueError(
-        "Không tìm được ảnh Commons đủ liên quan có license Public Domain, CC0 hoặc CC BY và có tác giả."
-    )
-
-
-def _music_pool(media_dir: Path, target_count: int = 8) -> list[dict[str, Any]]:
-    """Maintain a local pool of reusable, attributed, commercially usable tracks."""
-    media_dir = media_dir.resolve()
-    media_dir.mkdir(parents=True, exist_ok=True)
-    pool_path = media_dir / "background_music_pool.json"
-    pool: list[dict[str, Any]] = []
-    if pool_path.exists():
-        try:
-            cached = json.loads(pool_path.read_text(encoding="utf-8"))
-            if isinstance(cached, list):
-                for item in cached:
-                    if not isinstance(item, dict) or not _license_ok(
-                        str(item.get("license", "")), str(item.get("license_url", ""))
-                    ):
-                        continue
-                    local_path = Path(str(item.get("local_path", "")))
-                    if not local_path.is_absolute():
-                        local_path = local_path.resolve()
-                        if not local_path.is_file():
-                            local_path = media_dir / Path(str(item.get("local_path", ""))).name
-                    if local_path.is_file():
-                        item["local_path"] = str(local_path)
-                        pool.append(item)
-        except (OSError, json.JSONDecodeError):
-            pool = []
-
-    # Reuse a previously downloaded single-track cache as the first pool item.
-    legacy_path = media_dir / "background_music.json"
-    if legacy_path.exists():
-        try:
-            legacy = json.loads(legacy_path.read_text(encoding="utf-8"))
-            legacy_path_value = Path(str(legacy.get("local_path", ""))) if isinstance(legacy, dict) else Path()
-            if isinstance(legacy, dict) and not legacy_path_value.is_absolute():
-                legacy_path_value = legacy_path_value.resolve()
-                if not legacy_path_value.is_file():
-                    legacy_path_value = media_dir / legacy_path_value.name
-            if (isinstance(legacy, dict) and legacy_path_value.is_file()
-                    and _license_ok(str(legacy.get("license", "")), str(legacy.get("license_url", "")))
-                    and all(item.get("file_title") != legacy.get("file_title") for item in pool)):
-                legacy["local_path"] = str(legacy_path_value)
-                pool.append(legacy)
-        except (OSError, json.JSONDecodeError):
-            pass
-
-    seen = {str(item.get("file_title", "")) for item in pool}
-    queries = (
-        "instrumental background music upbeat sports",
-        "royalty free instrumental music",
-        "ambient instrumental music",
-        "upbeat instrumental music",
-        "background music instrumental",
-    )
-    for query in queries:
-        if len(pool) >= target_count:
-            break
-        for page in _search_music(query):
-            title = str(page.get("title", ""))
-            if not title or title in seen:
-                continue
-            seen.add(title)
-            asset = _music_metadata(page)
-            if not asset:
-                continue
-            suffix = Path(urlsplit(str(asset["download_url"])).path).suffix.casefold()
-            if suffix not in {".ogg", ".oga", ".mp3", ".wav", ".flac"}:
-                suffix = {"audio/mpeg": ".mp3", "audio/ogg": ".ogg", "audio/wav": ".wav", "audio/x-wav": ".wav", "audio/flac": ".flac"}.get(asset["mime"], ".ogg")
-            digest = hashlib.sha1(title.encode("utf-8")).hexdigest()[:12]
-            local_path = media_dir / f"background_music_{digest}{suffix}"
-            try:
-                _download_audio(asset["download_url"], local_path)
-            except (httpx.HTTPError, OSError, ValueError):
-                continue
-            asset["local_path"] = str(local_path)
-            pool.append(asset)
-            if len(pool) >= target_count:
-                break
-
-    if pool:
-        pool_path.write_text(json.dumps(pool, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        return pool
-    raise ValueError("Không tìm được nhạc nền Public Domain, CC0 hoặc CC BY có tác giả trên Wikimedia Commons.")
-
-
-def _commons_media_url(value: Any) -> str | None:
-    """Normalize Wikimedia media URLs and reject hosts outside Wikimedia."""
-    url = str(value or "").strip()
-    if url.startswith("//"):
-        url = "https:" + url
-    try:
-        parsed = urlsplit(url)
-        host = (parsed.hostname or "").casefold().rstrip(".")
-        if host not in {"upload.wikimedia.org", "commons.wikimedia.org"}:
-            return None
-        if parsed.scheme.casefold() == "http":
-            parsed = parsed._replace(scheme="https")
-        elif parsed.scheme.casefold() != "https":
-            return None
-        if parsed.username or parsed.password or parsed.port not in {None, 443}:
-            return None
-        return parsed.geturl()
-    except ValueError:
-        return None
-
-
-def _download_audio(url: str, path: Path) -> None:
-    url = _commons_media_url(url) or ""
-    if not url:
-        raise ValueError("Wikimedia trả về địa chỉ tải nhạc không hợp lệ.")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    total = 0
-    with httpx.stream(
-        "GET", url,
-        headers={"User-Agent": _user_agent(), "Api-User-Agent": _user_agent()},
-        timeout=30.0,
-        follow_redirects=False,
-    ) as response:
-        response.raise_for_status()
-        content_type = response.headers.get("content-type", "").casefold()
-        if not content_type.startswith("audio/"):
-            raise ValueError(f"Media không phải file nhạc: {content_type or 'không rõ'}.")
-        with path.open("wb") as output:
-            for chunk in response.iter_bytes():
-                total += len(chunk)
-                if total > MAX_MEDIA_BYTES:
-                    raise ValueError("File nhạc vượt giới hạn tải 30 MB.")
-                output.write(chunk)
-
-
-def _download_image(url: str, path: Path, expected_mime: str) -> None:
-    url = _commons_media_url(url) or ""
-    if not url:
-        raise ValueError("Wikimedia trả về URL ảnh không hợp lệ; chỉ chấp nhận HTTPS từ Commons hoặc upload.wikimedia.org.")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temp_path = path.with_suffix(path.suffix + ".tmp")
-    total = 0
-    try:
-        with httpx.stream(
-            "GET", url,
-            headers={"User-Agent": _user_agent(), "Api-User-Agent": _user_agent()},
-            timeout=30.0,
-            follow_redirects=False,
-        ) as response:
-            response.raise_for_status()
-            content_type = response.headers.get("content-type", "").split(";", 1)[0].casefold()
-            if content_type != expected_mime:
-                raise ValueError(f"Wikimedia trả media không phải ảnh {expected_mime}: {content_type or 'không rõ'}.")
-            with temp_path.open("wb") as output:
-                for chunk in response.iter_bytes():
-                    total += len(chunk)
-                    if total > MAX_MEDIA_BYTES:
-                        raise ValueError("Ảnh vượt giới hạn tải 30 MB.")
-                    output.write(chunk)
-        with Image.open(temp_path) as image:
-            image.verify()
-        temp_path.replace(path)
-    finally:
-        temp_path.unlink(missing_ok=True)
-
-
 def acquire_story_media(
     story: dict[str, Any],
     output_dir: Path,
@@ -507,21 +343,36 @@ def acquire_story_media(
         image_meta_path.write_text(json.dumps(image, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     report("audio_search")
-    music_pool = _music_pool(media_dir)
     selection_path = media_dir / "background_music_selection.json"
-    last_title = ""
+    last_track_id = ""
     if selection_path.exists():
         try:
-            last_title = str(json.loads(selection_path.read_text(encoding="utf-8")).get("last_file_title", ""))
+            last_track_id = str(json.loads(selection_path.read_text(encoding="utf-8")).get("last_track_id", ""))
         except (OSError, json.JSONDecodeError, AttributeError):
             pass
-    options = [item for item in music_pool if item.get("file_title") != last_title] or music_pool
-    music = random.choice(options)
+    ncs_tracks = _ncs_catalog(media_dir)
+    options = [item for item in ncs_tracks if item.get("track_id") != last_track_id] or ncs_tracks
+    random.shuffle(options)
+    music = None
+    music_path = None
+    for candidate in options:
+        digest = hashlib.sha1(candidate["track_id"].encode("utf-8")).hexdigest()[:16]
+        suffix = Path(urlsplit(candidate["download_url"]).path).suffix.casefold() or ".mp3"
+        candidate_path = media_dir / f"ncs_music_{digest}{suffix}"
+        try:
+            if not candidate_path.is_file():
+                _download_ncs_audio(candidate["download_url"], candidate_path)
+        except (httpx.HTTPError, OSError, ValueError):
+            continue
+        music = candidate
+        music_path = candidate_path
+        break
+    if music is None or music_path is None:
+        raise ValueError("Không tải được track nào từ danh mục chính thức của NCS.")
     selection_path.write_text(
-        json.dumps({"last_file_title": music.get("file_title", "")}, ensure_ascii=False) + "\n",
+        json.dumps({"last_track_id": music.get("track_id", "")}, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    music_path = Path(str(music["local_path"]))
 
     return {
         "image_path": str(image_path),
@@ -531,7 +382,9 @@ def acquire_story_media(
         "image_title": image["file_title"],
         "image_changes": "Ảnh từ bài viết nguồn, đã cắt theo tỷ lệ dọc và phủ chữ tóm tắt/credit.",
         "music_path": str(music_path),
-        "music_credit": f"Nhạc: {music['artist']} · {music['license']}",
+        "music_provider": music["provider"],
+        "music_credit": f"Nhạc: {music['artist']} · {music['file_title']} · NCS",
+        "music_attribution": music["music_attribution"],
         "music_license_url": music["license_url"],
         "music_page_url": music["file_page_url"],
         "music_title": music["file_title"],

@@ -113,6 +113,8 @@ def cleanup_expired_outputs(queue_path: Path, output_dir: Path, *, now: datetime
     for path in root.rglob("*"):
         if not path.is_file() or path.resolve() in active_paths:
             continue
+        if path.name in {"ncs_music_catalog.json", "background_music_selection.json"}:
+            continue
         modified = _file_time(path)
         if modified and modified <= cutoff and _unlink_inside(path, root):
             counts["files"] += 1

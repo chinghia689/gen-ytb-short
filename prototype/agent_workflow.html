@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kiến trúc và quy trình xử lý của agent newsroom bóng đá trong dự án.">
+  <title>Quy trình Agent Newsroom</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1117;
+      --panel: #121c25;
+      --panel-raised: #172632;
+      --line: #2b3c49;
+      --text: #edf4f7;
+      --muted: #adc0ca;
+      --mint: #8fe2c4;
+      --blue: #8cc8ff;
+      --violet: #c8b2ff;
+      --amber: #ffd28d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at 15% 0%, #152732 0, var(--bg) 48rem);
+      color: var(--text);
+      font: 16px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { width: min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 54px 0 80px; }
+    header { max-width: 850px; margin-bottom: 34px; }
+    .eyebrow { color: var(--mint); font-size: .78rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { margin: 10px 0 14px; font-size: clamp(2.1rem, 5vw, 3.6rem); line-height: 1.08; letter-spacing: -.04em; }
+    h2 { margin: 0 0 14px; font-size: 1.35rem; letter-spacing: -.02em; }
+    h3 { margin: 0 0 7px; font-size: 1rem; }
+    p { margin: 0 0 12px; color: var(--muted); }
+    .lede { max-width: 760px; font-size: 1.08rem; }
+    section { margin-top: 28px; padding: 25px; border: 1px solid var(--line); border-radius: 18px; background: color-mix(in srgb, var(--panel) 94%, transparent); }
+    .diagram-wrap { overflow-x: auto; margin: 18px -5px 0; padding: 4px 5px 10px; }
+    svg { display: block; width: 100%; min-width: 920px; height: auto; }
+    .node rect { fill: var(--panel-raised); stroke: #3b5261; stroke-width: 1.5; rx: 14; }
+    .node .title { fill: var(--text); font-size: 16px; font-weight: 730; }
+    .node .detail { fill: #b8c8d0; font-size: 12.5px; }
+    .node.source rect { stroke: #3c8d76; }
+    .node.editor rect { stroke: #6488bb; }
+    .node.ai rect { stroke: #8b74bd; }
+    .node.media rect { stroke: #a47c3e; }
+    .node.output rect { stroke: #3c8d76; fill: #132a28; }
+    .node.optional rect { stroke-dasharray: 6 4; }
+    .edge { fill: none; stroke: #79919f; stroke-width: 2; marker-end: url(#arrow); }
+    .edge-label { fill: #c4d2d8; font-size: 11.5px; }
+    .diagram-note { fill: #91a5af; font-size: 12px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card { padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel-raised); }
+    .card p:last-child, .card ul:last-child { margin-bottom: 0; }
+    ul { margin: 8px 0 0; padding-left: 20px; color: var(--muted); }
+    li + li { margin-top: 5px; }
+    code { color: #d6ebff; font: .9em ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+    .accent { color: var(--mint); }
+    .warning { border-left: 3px solid var(--amber); padding-left: 13px; }
+    footer { margin-top: 24px; color: #8498a3; font-size: .86rem; }
+    @media (max-width: 720px) {
+      main { width: min(100% - 24px, 1180px); padding-top: 34px; }
+      section { padding: 18px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      :root { color-scheme: light; --bg: #fff; --panel: #fff; --panel-raised: #f4f7f8; --line: #cbd5da; --text: #17232a; --muted: #40535d; }
+      body { background: #fff; color: var(--text); }
+      main { width: 100%; padding: 12mm; }
+      section { break-inside: avoid; }
+      svg { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Tài liệu kiến trúc · Prototype newsroom</div>
+    <h1>Quy trình hoạt động của Agent</h1>
+    <p class="lede">Agent biến tin bóng đá từ RSS thành story có nguồn, kiểm chứng phạm vi Ngoại hạng Anh, biên tập nội dung ngắn, dựng video dọc và chuẩn bị metadata khi đăng. Quy trình có một nhánh tự động và một nhánh qua biên tập viên; cả hai dùng chung hàng đợi và đầu ra video.</p>
+  </header>
+
+  <section aria-labelledby="flow-title">
+    <h2 id="flow-title">Sơ đồ luồng xử lý</h2>
+    <p>Mũi tên liền là luồng dữ liệu chính. Khung nét đứt là bước xuất bản tùy chọn sau khi video đã được tạo và xem lại.</p>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1360 900" role="img" aria-labelledby="diagram-title diagram-desc">
+        <title id="diagram-title">Luồng của Agent newsroom từ RSS đến video YouTube</title>
+        <desc id="diagram-desc">RSS được chuẩn hóa và gom story, sau đó đi qua biên tập thủ công hoặc agent nghiên cứu; nội dung được rà soát, dịch, ghép ảnh và nhạc NCS, dựng video, rồi có thể đăng lên YouTube.</desc>
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#79919f" />
+          </marker>
+        </defs>
+
+        <!-- Intake -->
+        <g class="node source" transform="translate(28 44)"><rect width="220" height="94"/><text class="title" x="16" y="31">Nguồn RSS</text><text class="detail" x="16" y="55">sources.json · nguồn bật</text><text class="detail" x="16" y="74">bài, ngày, URL, danh mục</text></g>
+        <g class="node source" transform="translate(300 44)"><rect width="220" height="94"/><text class="title" x="16" y="31">Đọc và chuẩn hóa</text><text class="detail" x="16" y="55">RSS / Atom → bản ghi chuẩn</text><text class="detail" x="16" y="74">URL trùng bị loại</text></g>
+        <g class="node source" transform="translate(572 44)"><rect width="220" height="94"/><text class="title" x="16" y="31">Gom bài thành story</text><text class="detail" x="16" y="55">URL hoặc tiêu đề tương tự</text><text class="detail" x="16" y="74">ưu tiên nguồn độc lập</text></g>
+        <g class="node source" transform="translate(844 44)"><rect width="220" height="94"/><text class="title" x="16" y="31">Lưu dữ liệu</text><text class="detail" x="16" y="55">live_news.json</text><text class="detail" x="16" y="74">stories.json · review_queue.json</text></g>
+        <path class="edge" d="M248 91 H294"/><path class="edge" d="M520 91 H566"/><path class="edge" d="M792 91 H838"/>
+
+        <!-- Branch -->
+        <text class="diagram-note" x="30" y="188">Từ hàng đợi, story đi theo một trong hai nhánh biên tập:</text>
+        <g class="node editor" transform="translate(92 220)"><rect width="280" height="112"/><text class="title" x="16" y="31">Biên tập viên</text><text class="detail" x="16" y="56">xác nhận giải đấu và trạng thái</text><text class="detail" x="16" y="76">ghi tóm tắt + căn cứ đối chiếu</text><text class="detail" x="16" y="96">qua Review UI / FastAPI</text></g>
+        <g class="node ai" transform="translate(456 220)"><rect width="340" height="112"/><text class="title" x="16" y="31">Agent nghiên cứu</text><text class="detail" x="16" y="56">đọc URL nguồn trong allowlist</text><text class="detail" x="16" y="76">supported / uncertain → tiếp tục tạo nội dung</text><text class="detail" x="16" y="96">rejected / thiếu nguồn → dừng hoặc cần rà soát</text></g>
+        <path class="edge" d="M954 138 V176 H232 V214"/><path class="edge" d="M954 138 V176 H626 V214"/>
+        <text class="edge-label" x="430" y="170">hàng đợi story</text>
+
+        <!-- Script -->
+        <g class="node ai" transform="translate(102 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">Viết 3 dòng tóm tắt</text><text class="detail" x="16" y="55">tiếng Việt · tối đa 48 ký tự/dòng</text><text class="detail" x="16" y="76">chỉ dùng summary + evidence notes</text></g>
+        <g class="node ai" transform="translate(405 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">AI rà soát nội dung</text><text class="detail" x="16" y="55">so với căn cứ và độ chắc chắn</text><text class="detail" x="16" y="76">có thể yêu cầu viết lại</text></g>
+        <g class="node editor" transform="translate(708 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">Duyệt kịch bản</text><text class="detail" x="16" y="55">API hỗ trợ duyệt bằng người</text><text class="detail" x="16" y="76">hoặc agent tiếp tục khi đạt</text></g>
+        <g class="node ai" transform="translate(1011 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">Dịch chữ sang English</text><text class="detail" x="16" y="55">3 dòng ngắn, giữ nghĩa và sắc thái</text><text class="detail" x="16" y="76">bản tiếng Anh được in lên video</text></g>
+        <path class="edge" d="M232 332 V394"/>
+        <path class="edge" d="M626 332 V365 H227 V394"/><text class="edge-label" x="420" y="359">story đủ điều kiện</text>
+        <path class="edge" d="M352 453 H399"/><path class="edge" d="M655 453 H702"/><path class="edge" d="M958 453 H1005"/>
+
+        <!-- Media -->
+        <g class="node media" transform="translate(195 575)"><rect width="300" height="110"/><text class="title" x="16" y="31">Ảnh theo story</text><text class="detail" x="16" y="57">đọc ảnh từ bài của nguồn đã duyệt</text><text class="detail" x="16" y="78">kiểm tra host và loại nội dung</text></g>
+        <g class="node media" transform="translate(570 575)"><rect width="300" height="110"/><text class="title" x="16" y="31">Nhạc NCS ngẫu nhiên</text><text class="detail" x="16" y="57">cache danh mục chính thức · làm mới hằng ngày</text><text class="detail" x="16" y="78">tải track được chọn + lưu mẫu ghi công</text></g>
+        <g class="node output" transform="translate(945 575)"><rect width="300" height="110"/><text class="title" x="16" y="31">Dựng video dọc</text><text class="detail" x="16" y="57">ảnh tĩnh + chữ English + credit</text><text class="detail" x="16" y="78">MP4 1080×1920 · 20 giây · nhạc nền</text></g>
+        <path class="edge" d="M1136 506 V548 H345 V569"/><path class="edge" d="M1136 506 V548 H720 V569"/>
+        <path class="edge" d="M495 630 H939"/><path class="edge" d="M870 630 H939"/>
+
+        <!-- Output and publishing -->
+        <g class="node output" transform="translate(390 755)"><rect width="280" height="94"/><text class="title" x="16" y="31">Lưu và xem lại</text><text class="detail" x="16" y="55">MP4 + credits · hàng đợi JSON</text><text class="detail" x="16" y="74">media tạm được dọn sau 2 giờ</text></g>
+        <g class="node optional" transform="translate(760 755)"><rect width="330" height="94"/><text class="title" x="16" y="31">Đăng YouTube (tùy chọn)</text><text class="detail" x="16" y="55">OAuth · mô tả gồm nguồn và credit NCS</text><text class="detail" x="16" y="74">trạng thái công khai do API đặt</text></g>
+        <path class="edge" d="M1095 685 V718 H530 V749"/><path class="edge" d="M670 802 H754"/>
+        <text class="edge-label" x="695" y="792">sau khi xem lại</text>
+      </svg>
+    </div>
+  </section>
+
+  <section aria-labelledby="paths-title">
+    <h2 id="paths-title">Hai nhánh xử lý story</h2>
+    <div class="grid">
+      <article class="card">
+        <h3><span class="accent">Nhánh có biên tập viên</span></h3>
+        <p>Review UI hiển thị các story đã gom. Biên tập viên xác nhận story thuộc Ngoại hạng Anh, chọn <code>supported</code> hoặc <code>uncertain</code>, rồi cung cấp tóm tắt tiếng Việt và ghi chú căn cứ. API chỉ cho tạo video khi story có nguồn, đã xác nhận và có chữ được duyệt.</p>
+      </article>
+      <article class="card">
+        <h3><span style="color:var(--violet)">Nhánh tự động</span></h3>
+        <p>Newsroom agent mở bài nguồn bằng tool bị giới hạn trong URL của story và host đã cấu hình. Agent đối chiếu nguồn rồi phân loại. Quyết định đã lưu của con người được ưu tiên dùng lại; story bị loại hoặc ngoài phạm vi không đi tới khâu dựng.</p>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="checks-title">
+    <h2 id="checks-title">Các điểm kiểm soát nội dung</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Phạm vi và nguồn</h3>
+        <ul>
+          <li>RSS phân loại ứng viên; tên đội riêng lẻ chưa đủ để tự xác nhận Premier League.</li>
+          <li>Đọc bài chỉ dùng HTTPS, host trong allowlist và URL nguồn đã gắn với story.</li>
+          <li>Một nguồn hoặc các nguồn bất đồng khiến kết quả được hạ xuống <code>uncertain</code>.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Chữ trên video</h3>
+        <ul>
+          <li>AI tạo đúng ba dòng tiếng Việt; lượt rà soát so nội dung với tóm tắt và evidence notes.</li>
+          <li>Sau khi được chấp thuận, ba dòng được dịch sang tiếng Anh và in cố định lên ảnh dọc.</li>
+          <li>Video là ảnh tĩnh có nhạc nền; hiện không có lời dẫn hoặc phụ đề theo thời gian.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Ảnh và nhạc</h3>
+        <ul>
+          <li>Ảnh được lấy từ bài của nguồn đã duyệt; redirect và media host được kiểm tra.</li>
+          <li>Danh mục NCS được nạp từ trang chính thức, cache một ngày; track được chọn ngẫu nhiên, tránh lặp bài vừa dùng.</li>
+          <li>Mẫu ghi công track được thêm vào mô tả YouTube và file credits.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Lỗi và vòng đời dữ liệu</h3>
+        <ul>
+          <li>Lỗi RSS được ghi riêng; khi không nhận được bài mới, hàng đợi hiện có được giữ.</li>
+          <li>Lỗi đọc nguồn hoặc LLM không tạo kết quả được lưu dưới trạng thái cần rà soát/lỗi.</li>
+          <li>Video, ảnh và nhạc tải về quá hai giờ được dọn; manifest NCS và lựa chọn gần nhất được giữ lại.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="map-title">
+    <h2 id="map-title">Thành phần trong mã nguồn</h2>
+    <div class="grid">
+      <article class="card"><h3>Thu thập và trạng thái</h3><p><code>feed/rss_reader.py</code> đọc RSS; <code>stories/clustering.py</code> gom bài; <code>review/queue.py</code> tạo và lọc hàng đợi JSON.</p></article>
+      <article class="card"><h3>Nghiên cứu và tạo chữ</h3><p><code>agent/newsroom.py</code> điều phối agent và đọc bài; <code>content/ai_writer.py</code> gọi Ollama để tạo, rà soát và dịch chữ.</p></article>
+      <article class="card"><h3>Media và video</h3><p><code>agent/media.py</code> lấy ảnh, nạp danh mục và tải track NCS; <code>video/render.py</code> tạo ảnh ghép và MP4; <code>video/retention.py</code> quản lý thời hạn file.</p></article>
+      <article class="card"><h3>Giao diện và xuất bản</h3><p><code>api/main.py</code> cung cấp API; <code>review_ui/</code> là giao diện React; <code>publishing/youtube.py</code> xác thực OAuth và đăng video.</p></article>
+    </div>
+    <p class="warning" style="margin-top:16px">Danh mục NCS và URL track được lấy trực tiếp từ website chính thức. Nếu cấu trúc website hoặc điều khoản thay đổi, parser hoặc khả năng dùng nhạc có thể cần cập nhật.</p>
+  </section>
+
+  <footer>Tài liệu mô tả luồng triển khai hiện tại trong mã nguồn của prototype.</footer>
+</main>
+</body>
+</html>

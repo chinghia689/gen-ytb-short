@@ -14,7 +14,7 @@ import httpx
 from dotenv import load_dotenv
 
 from prototype.agent.media import acquire_story_media
-from prototype.content.ai_writer import review_video_text, write_video_lines
+from prototype.content.ai_writer import review_video_text, translate_video_lines_en, write_video_lines
 from prototype.feed.rss_reader import fetch_sources, save_records
 from prototype.review.queue import create_review_queue, save_review_queue
 from prototype.stories.clustering import cluster_articles
@@ -403,7 +403,8 @@ def run_newsroom_agent(limit: int = 5, *, config_path: Path | None = None) -> di
         "script_approved", "script_approval_method", "script_approved_at",
         "script_generated_at", "script_reviewed_at", "script_review_attempts",
         "image_path", "image_credit", "image_license_url", "image_page_url", "image_title", "image_changes",
-        "music_path", "music_credit", "music_license_url", "music_page_url", "music_title",
+        "music_path", "music_provider", "music_credit", "music_attribution", "music_license_url",
+        "music_page_url", "music_title",
         "video_path", "video_url", "credits_url", "video_created_at",
         "youtube_video_id", "youtube_url", "youtube_title", "youtube_privacy_status",
         "youtube_uploaded_at", "youtube_upload_error",
@@ -552,6 +553,7 @@ def run_newsroom_agent(limit: int = 5, *, config_path: Path | None = None) -> di
                         result["step"] = step
                         story["agent_step"] = step
 
+                    story["video_lines_en"] = translate_video_lines_en(story, video_lines)
                     media = acquire_story_media(story, output_dir, on_step=set_media_step)
                     story.update(media)
                     story["script_approved"] = True

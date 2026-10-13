@@ -42,8 +42,10 @@ def _wrap_pixels(draw: ImageDraw.ImageDraw, text: str, font, width: int) -> list
 
 
 def _credit_block(draw: ImageDraw.ImageDraw, story: dict[str, Any]) -> None:
-    image_credit = str(story.get("image_credit", "Ảnh: nguồn tin"))
-    music_credit = str(story.get("music_credit", "Nhạc: Wikimedia Commons"))
+    image_credit = str(story.get("image_credit", "Image: source"))
+    music_credit = str(story.get("music_credit", "Music: NoCopyrightSounds"))
+    image_credit = image_credit.replace("Ảnh:", "Image:", 1)
+    music_credit = music_credit.replace("Nhạc:", "Music:", 1)
     font = _font(20)
     for index, line in enumerate((image_credit, music_credit)):
         line = textwrap.shorten(line, width=88, placeholder="…")
@@ -62,18 +64,14 @@ def _make_card(story: dict[str, Any], card_path: Path) -> None:
     draw = ImageDraw.Draw(image, "RGBA")
 
     draw.rounded_rectangle((58, 72, 1022, 190), radius=28, fill=(9, 28, 34, 205), outline=(94, 215, 174, 210), width=2)
-    draw.text((94, 106), "TÓM TẮT BÓNG ĐÁ", font=_font(42, True), fill="#8fe2c4")
+    draw.text((94, 106), "FOOTBALL BRIEF", font=_font(42, True), fill="#8fe2c4")
 
-    lines = story.get("video_lines") or []
+    lines = story.get("video_lines_en") or []
     if not isinstance(lines, list):
         lines = []
     lines = [str(line).strip() for line in lines if str(line).strip()][:3]
     if not lines:
-        summary = str(story.get("summary_vi", "")).strip()
-        lines = [textwrap.shorten(part.strip(), width=64, placeholder="…")
-                 for part in summary.replace("?", ".").split(".") if part.strip()][:3]
-    if not lines:
-        raise ValueError("Agent chưa tạo được các dòng tóm tắt cho video.")
+        raise ValueError("Chưa có ba dòng tiếng Anh để hiển thị trên video.")
 
     y = 530 if len(lines) == 3 else 650
     line_font = _font(54, True)
@@ -103,6 +101,7 @@ def _write_credits(story: dict[str, Any], path: Path) -> None:
         f"Tên nhạc: {story.get('music_title', '')}",
         f"Nhạc: {story.get('music_page_url', '')}",
         f"Giấy phép nhạc: {story.get('music_license_url', '')}",
+        *(["NCS attribution:", str(story["music_attribution"])] if story.get("music_attribution") else []),
     ]
     path.write_text("\n".join(line for line in credits if line.strip()) + "\n", encoding="utf-8")
 
@@ -117,8 +116,8 @@ def render_video(story: dict[str, Any], output_dir: Path) -> Path:
         raise ValueError("Thiếu ảnh có license cho story.")
     if not music_path.is_file():
         raise ValueError("Thiếu nhạc nền có giấy phép cho video.")
-    if not story.get("video_lines") and not story.get("summary_vi"):
-        raise ValueError("Story chưa có các dòng tóm tắt để hiển thị.")
+    if not story.get("video_lines_en"):
+        raise ValueError("Story chưa có các dòng tiếng Anh để hiển thị.")
 
     output_dir.mkdir(parents=True, exist_ok=True)
     story_id = str(story["story_id"])
@@ -130,8 +129,8 @@ def render_video(story: dict[str, Any], output_dir: Path) -> Path:
 
     command = [
         ffmpeg, "-y", "-loop", "1", "-framerate", "30", "-i", str(card_path),
-        "-stream_loop", "-1", "-i", str(music_path), "-map", "0:v:0", "-map", "1:a:0",
-        "-vf", "scale=1080:1920,format=yuv420p", "-af", "volume=0.20,afade=t=out:st=18:d=2",
+        "-i", str(music_path), "-map", "0:v:0", "-map", "1:a:0",
+        "-vf", "scale=1080:1920,format=yuv420p",
         "-t", "20", "-r", "30", "-c:v", "libx264", "-preset", "medium", "-tune", "stillimage",
         "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(video_path),
     ]

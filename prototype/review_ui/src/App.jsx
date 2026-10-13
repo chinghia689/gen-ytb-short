@@ -19,8 +19,8 @@ const STEP_LABEL = {
   article_research: "đọc và tóm tắt tin",
   script_review: "viết và rà soát chữ",
   image_search: "tìm ảnh theo tin",
-  audio_search: "tìm âm thanh",
-  image_and_audio: "lấy ảnh và âm thanh",
+  audio_search: "chọn nhạc NCS ngẫu nhiên",
+  image_and_audio: "lấy ảnh nguồn và nhạc NCS",
   video_render: "ghép ảnh, chữ và âm thanh thành video",
   complete: "dựng video xong",
 };

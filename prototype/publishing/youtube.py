@@ -179,6 +179,8 @@ def upload_video(video_path: Path, story: dict[str, Any]) -> dict[str, str]:
     sections = [summary]
     if story.get("review_status") == "uncertain":
         sections.insert(0, "Lưu ý: thông tin trong video chưa được xác nhận đầy đủ.")
+    if story.get("music_attribution"):
+        sections.append(str(story["music_attribution"]))
     if sources:
         sections.append("Nguồn tham khảo:\n" + "\n".join(sources))
     if any(credits):
