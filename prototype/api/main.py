@@ -19,7 +19,12 @@ from dotenv import load_dotenv
 
 from prototype.agent.newsroom import run_newsroom_agent
 from prototype.agent.media import acquire_story_media
-from prototype.content.ai_writer import review_video_text, translate_video_lines_en, write_video_lines
+from prototype.content.ai_writer import (
+    review_video_text,
+    translate_video_lines_en,
+    validate_video_lines,
+    write_video_lines,
+)
 from prototype.publishing import youtube as youtube_publishing
 from prototype.review.queue import load_approved_stories
 from prototype.scripts.drafts import render_drafts
@@ -379,7 +384,11 @@ def generate_story_script(story_id: str):
     try:
         lines = write_video_lines(story)
         script = "\n".join(lines)
-        ai_review = review_video_text(story, script)
+        issues = validate_video_lines(lines, story.get("review_status", ""))
+        ai_review = (
+            {"status": "needs_review", "notes": " ".join(issues)}
+            if issues else review_video_text(story, script)
+        )
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     except Exception as exc:
@@ -422,10 +431,14 @@ def review_story_script(story_id: str, update: ScriptReviewUpdate):
         approved = True
         approval_method = "editor"
     else:
-        try:
-            ai_review = review_video_text(story, script)
-        except Exception as exc:
-            raise HTTPException(status_code=502, detail=f"Không gọi được dịch vụ AI: {exc}") from exc
+        issues = validate_video_lines(lines, story.get("review_status", ""))
+        if issues:
+            ai_review = {"status": "needs_review", "notes": " ".join(issues)}
+        else:
+            try:
+                ai_review = review_video_text(story, script)
+            except Exception as exc:
+                raise HTTPException(status_code=502, detail=f"Không gọi được dịch vụ AI: {exc}") from exc
         approved = ai_review["status"] == "pass"
         approval_method = "llm" if approved else None
     now = datetime.now(timezone.utc).isoformat()

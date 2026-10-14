@@ -8,6 +8,8 @@ from typing import Any
 
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
+from prototype.performance import stage
+
 
 FONT_CANDIDATES = [
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -124,8 +126,10 @@ def render_video(story: dict[str, Any], output_dir: Path) -> Path:
     card_path = output_dir / f"{story_id}.png"
     video_path = output_dir / f"{story_id}.mp4"
     credits_path = output_dir / f"{story_id}_credits.txt"
-    _make_card(story, card_path)
-    _write_credits(story, credits_path)
+    with stage("card_render", story_id=story_id):
+        _make_card(story, card_path)
+    with stage("credits_write", story_id=story_id):
+        _write_credits(story, credits_path)
 
     command = [
         ffmpeg, "-y", "-loop", "1", "-framerate", "30", "-i", str(card_path),
@@ -135,7 +139,8 @@ def render_video(story: dict[str, Any], output_dir: Path) -> Path:
         "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(video_path),
     ]
     try:
-        subprocess.run(command, check=True, capture_output=True, text=True, timeout=600)
+        with stage("ffmpeg_encode", story_id=story_id, preset="medium", duration_seconds=20):
+            subprocess.run(command, check=True, capture_output=True, text=True, timeout=600)
     except subprocess.CalledProcessError as exc:
         detail = (exc.stderr or "").strip()[-1600:]
         raise RuntimeError(f"FFmpeg không dựng được video: {detail}") from exc

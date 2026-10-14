@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import time
 from pathlib import Path
 
@@ -9,6 +10,7 @@ from prototype.feed.rss_reader import fetch_sources, save_records
 from prototype.review.queue import create_review_queue, save_review_queue, load_approved_stories
 from prototype.scripts.drafts import render_drafts
 from prototype.stories.clustering import cluster_articles, load_articles, save_stories
+from prototype.performance import DEFAULT_LOG, summarize
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -45,6 +47,14 @@ def main() -> None:
     agent.add_argument("--limit", type=int, default=5, help="Số video cần hoàn tất mỗi vòng (1-10)")
     agent.add_argument("--loop", action="store_true", help="Chạy liên tục theo chu kỳ")
     agent.add_argument("--interval-minutes", type=int, default=120, help="Chu kỳ khi dùng --loop")
+    agent.add_argument("--max-stories", type=int, default=None,
+                       help="Số tối đa story thử trong một lượt (hữu ích cho benchmark)")
+    agent.add_argument("--story-id", default=None,
+                       help="Chỉ chạy story này; ép thử lại nếu story đang trong cooldown")
+
+    perf = commands.add_parser("perf", help="Tóm tắt thời gian stage từ performance.jsonl")
+    perf.add_argument("--input", type=Path, default=DEFAULT_LOG)
+    perf.add_argument("--last", type=int, default=100, help="Số lượt gần nhất để tổng hợp")
 
     args = parser.parse_args()
 
@@ -66,9 +76,17 @@ def main() -> None:
         print(f"Hàng đợi duyệt: {args.review_output.resolve()}")
         return
 
+    if args.command == "perf":
+        print(json.dumps(summarize(args.input, last=max(1, args.last)), ensure_ascii=False, indent=2))
+        return
+
     if args.command == "agent":
         while True:
-            result = run_newsroom_agent(limit=args.limit)
+            result = run_newsroom_agent(
+                limit=args.limit,
+                max_processed_stories=args.max_stories,
+                only_story_id=args.story_id,
+            )
             print(f"Agent: {result['completed_videos']}/{result['target_videos']} video hoàn tất; "
                   f"đã xử lý {len(result['processed'])} story từ {result['stories_seen']} story RSS.")
             for item in result["processed"]:

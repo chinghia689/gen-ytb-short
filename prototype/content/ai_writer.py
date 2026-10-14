@@ -6,8 +6,12 @@ from typing import Any
 
 import httpx
 
+from prototype.performance import count, stage
 
-def _ollama_chat(story: dict[str, Any], instruction: str, *, json_output: bool = False) -> str:
+
+def _ollama_chat(
+    story: dict[str, Any], instruction: str, *, json_output: bool = False, operation: str = "request"
+) -> str:
     base_url = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
     model = os.getenv("QWEN_MODEL", "qwen3:8b").strip()
     if not model:
@@ -34,9 +38,11 @@ def _ollama_chat(story: dict[str, Any], instruction: str, *, json_output: bool =
     if json_output:
         payload["format"] = "json"
     try:
-        response = httpx.post(f"{base_url}/api/chat", json=payload, timeout=240)
-        response.raise_for_status()
-        result = response.json()
+        with stage(f"llm_{operation}", model=model):
+            count("llm_requests")
+            response = httpx.post(f"{base_url}/api/chat", json=payload, timeout=240)
+            response.raise_for_status()
+            result = response.json()
     except httpx.ConnectError as exc:
         raise ValueError(
             "Không kết nối được Ollama. Hãy mở Ollama và tải model bằng `ollama pull qwen3:8b`."
@@ -64,7 +70,7 @@ def write_video_lines(story: dict[str, Any], revision_notes: str = "") -> list[s
     )
     if revision_notes.strip():
         instruction += " Sửa theo các ghi chú rà soát sau, không thêm dữ kiện: " + revision_notes[:800]
-    raw = _ollama_chat(story, instruction, json_output=True)
+    raw = _ollama_chat(story, instruction, json_output=True, operation="script")
     try:
         parsed = json.loads(raw)
     except json.JSONDecodeError as exc:
@@ -78,6 +84,28 @@ def write_video_lines(story: dict[str, Any], revision_notes: str = "") -> list[s
     return lines
 
 
+def validate_video_lines(lines: Any, review_status: str) -> list[str]:
+    """Return deterministic format and uncertainty-policy issues for a script."""
+    if not isinstance(lines, list) or len(lines) != 3:
+        return ["Cần đúng 3 dòng chữ."]
+    normalized = [line.strip() if isinstance(line, str) else "" for line in lines]
+    issues = []
+    if any(not line for line in normalized):
+        issues.append("Không được có dòng trống.")
+    if any(len(line) > 48 for line in normalized):
+        issues.append("Mỗi dòng tối đa 48 ký tự.")
+    if any("\n" in line or "\r" in line for line in normalized):
+        issues.append("Mỗi phần tử chỉ được chứa một dòng.")
+    if len({" ".join(line.casefold().split()) for line in normalized}) != 3:
+        issues.append("Ba dòng phải nêu ý khác nhau.")
+    if review_status == "uncertain" and not any(
+        "chưa" in line.casefold() and "xác nhận" in line.casefold()
+        for line in normalized
+    ):
+        issues.append("Story uncertain cần một dòng nói rõ tin chưa được xác nhận.")
+    return issues
+
+
 def translate_video_lines_en(story: dict[str, Any], lines: list[str]) -> list[str]:
     if len(lines) != 3 or any(not str(line).strip() for line in lines):
         raise ValueError("Cần đúng 3 dòng tiếng Việt để dịch sang tiếng Anh.")
@@ -88,7 +116,7 @@ def translate_video_lines_en(story: dict[str, Any], lines: list[str]) -> list[st
         "Keep each English line under 48 characters so it fits on a vertical video. "
         'Return only valid JSON in this schema: {"video_lines_en":["...","...","..."]}.'
     )
-    raw = _ollama_chat(translation_story, instruction, json_output=True)
+    raw = _ollama_chat(translation_story, instruction, json_output=True, operation="translation")
     try:
         parsed = json.loads(raw)
     except json.JSONDecodeError as exc:
@@ -114,7 +142,7 @@ def review_video_text(story: dict[str, Any], video_text: str) -> dict[str, str]:
         'Chỉ trả JSON đúng schema: {"status":"pass" hoặc "needs_review", "notes":"lý do ngắn tiếng Việt"}. '
         "pass chỉ có nghĩa là không phát hiện lỗi rõ trong văn bản, không xác nhận sự thật."
     )
-    raw = _ollama_chat(review_story, instruction, json_output=True)
+    raw = _ollama_chat(review_story, instruction, json_output=True, operation="script_review")
     try:
         result = json.loads(raw)
     except json.JSONDecodeError:

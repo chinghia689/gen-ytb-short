@@ -86,7 +86,7 @@
     <div class="diagram-wrap">
       <svg viewBox="0 0 1360 900" role="img" aria-labelledby="diagram-title diagram-desc">
         <title id="diagram-title">Luồng của Agent newsroom từ RSS đến video YouTube</title>
-        <desc id="diagram-desc">RSS được chuẩn hóa và gom story, sau đó đi qua biên tập thủ công hoặc agent nghiên cứu; nội dung được rà soát, dịch, ghép ảnh và nhạc NCS, dựng video, rồi có thể đăng lên YouTube.</desc>
+        <desc id="diagram-desc">RSS được chuẩn hóa và gom story, sau đó đi qua biên tập thủ công hoặc agent nghiên cứu. Agent tải nguồn trước rồi dùng một lượt LLM để phân tích và tạo ba dòng. Ba dòng được precheck, reviewer độc lập kiểm tra nội dung, rồi dịch, ghép ảnh và nhạc NCS, dựng video, có thể đăng YouTube.</desc>
         <defs>
           <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M 0 0 L 10 5 L 0 10 z" fill="#79919f" />
@@ -103,13 +103,13 @@
         <!-- Branch -->
         <text class="diagram-note" x="30" y="188">Từ hàng đợi, story đi theo một trong hai nhánh biên tập:</text>
         <g class="node editor" transform="translate(92 220)"><rect width="280" height="112"/><text class="title" x="16" y="31">Biên tập viên</text><text class="detail" x="16" y="56">xác nhận giải đấu và trạng thái</text><text class="detail" x="16" y="76">ghi tóm tắt + căn cứ đối chiếu</text><text class="detail" x="16" y="96">qua Review UI / FastAPI</text></g>
-        <g class="node ai" transform="translate(456 220)"><rect width="340" height="112"/><text class="title" x="16" y="31">Agent nghiên cứu</text><text class="detail" x="16" y="56">đọc URL nguồn trong allowlist</text><text class="detail" x="16" y="76">supported / uncertain → tiếp tục tạo nội dung</text><text class="detail" x="16" y="96">rejected / thiếu nguồn → dừng hoặc cần rà soát</text></g>
+        <g class="node ai" transform="translate(456 220)"><rect width="340" height="112"/><text class="title" x="16" y="31">Agent nghiên cứu</text><text class="detail" x="16" y="56">tải URL allowlist song song (tối đa 4)</text><text class="detail" x="16" y="76">1 lượt LLM phân tích + tạo 3 dòng</text><text class="detail" x="16" y="96">không đọc được nguồn nào → dừng</text></g>
         <path class="edge" d="M954 138 V176 H232 V214"/><path class="edge" d="M954 138 V176 H626 V214"/>
         <text class="edge-label" x="430" y="170">hàng đợi story</text>
 
         <!-- Script -->
-        <g class="node ai" transform="translate(102 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">Viết 3 dòng tóm tắt</text><text class="detail" x="16" y="55">tiếng Việt · tối đa 48 ký tự/dòng</text><text class="detail" x="16" y="76">chỉ dùng summary + evidence notes</text></g>
-        <g class="node ai" transform="translate(405 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">AI rà soát nội dung</text><text class="detail" x="16" y="55">so với căn cứ và độ chắc chắn</text><text class="detail" x="16" y="76">có thể yêu cầu viết lại</text></g>
+        <g class="node ai" transform="translate(102 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">Tạo / dùng 3 dòng</text><text class="detail" x="16" y="55">dùng lines nghiên cứu nếu hợp lệ</text><text class="detail" x="16" y="76">agent fallback nếu precheck lỗi</text></g>
+        <g class="node ai" transform="translate(405 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">Precheck + AI review</text><text class="detail" x="16" y="55">kiểm tra format trước</text><text class="detail" x="16" y="76">review độc lập; sửa nếu có lỗi</text></g>
         <g class="node editor" transform="translate(708 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">Duyệt kịch bản</text><text class="detail" x="16" y="55">API hỗ trợ duyệt bằng người</text><text class="detail" x="16" y="76">hoặc agent tiếp tục khi đạt</text></g>
         <g class="node ai" transform="translate(1011 400)"><rect width="250" height="106"/><text class="title" x="16" y="30">Dịch chữ sang English</text><text class="detail" x="16" y="55">3 dòng ngắn, giữ nghĩa và sắc thái</text><text class="detail" x="16" y="76">bản tiếng Anh được in lên video</text></g>
         <path class="edge" d="M232 332 V394"/>
@@ -141,7 +141,7 @@
       </article>
       <article class="card">
         <h3><span style="color:var(--violet)">Nhánh tự động</span></h3>
-        <p>Newsroom agent mở bài nguồn bằng tool bị giới hạn trong URL của story và host đã cấu hình. Agent đối chiếu nguồn rồi phân loại. Quyết định đã lưu của con người được ưu tiên dùng lại; story bị loại hoặc ngoài phạm vi không đi tới khâu dựng.</p>
+        <p>Newsroom agent tải các URL thuộc story trong allowlist host, trích nội dung rồi gửi các bài đã đọc trong một request LLM. Việc tải chạy song song tối đa bốn URL; tổng ngữ cảnh bài được giới hạn ở 24.000 ký tự. Nếu không đọc được nguồn nào, agent dừng trước khi gọi LLM. Nội dung bài được xem là dữ liệu không đáng tin cậy. Agent đối chiếu nguồn rồi phân loại. Quyết định đã lưu của con người được ưu tiên dùng lại; story bị loại hoặc ngoài phạm vi không đi tới khâu dựng.</p>
       </article>
     </div>
   </section>
@@ -160,7 +160,8 @@
       <article class="card">
         <h3>Chữ trên video</h3>
         <ul>
-          <li>AI tạo đúng ba dòng tiếng Việt; lượt rà soát so nội dung với tóm tắt và evidence notes.</li>
+          <li>Nghiên cứu tạo ba dòng; dùng lại nếu đúng ba dòng không rỗng, khác nhau, tối đa 48 ký tự/dòng và phù hợp trạng thái xác nhận. Nếu precheck lỗi, gọi writer fallback.</li>
+          <li>AI reviewer độc lập so nội dung với tóm tắt và evidence notes; chỉ viết lại khi phát hiện lỗi, rồi review lại.</li>
           <li>Sau khi được chấp thuận, ba dòng được dịch sang tiếng Anh và in cố định lên ảnh dọc.</li>
           <li>Video là ảnh tĩnh có nhạc nền; hiện không có lời dẫn hoặc phụ đề theo thời gian.</li>
         </ul>
@@ -184,11 +185,20 @@
     </div>
   </section>
 
+  <section aria-labelledby="perf-title">
+    <h2 id="perf-title">Đo thời gian xử lý</h2>
+    <p>Mỗi lượt agent ghi telemetry JSONL vào <code>prototype/data/performance.jsonl</code>. Dùng cùng story và cùng cấu hình máy để so sánh trước/sau; một lượt đơn lẻ chưa đủ để kết luận mức cải thiện.</p>
+    <div class="grid">
+      <article class="card"><h3>Ghi baseline hoặc đo lại một story</h3><p><code>python -m prototype agent --limit 1 --max-stories 1</code><br><code>python -m prototype agent --story-id &lt;id&gt;</code></p></article>
+      <article class="card"><h3>Xem thống kê</h3><p><code>python -m prototype perf --last 10</code></p><p>Báo cáo mean, p50, p95 theo stage và story; kèm trạng thái, request/tool LLM, retry, lỗi/timeout và cache hit/miss.</p></article>
+    </div>
+  </section>
+
   <section aria-labelledby="map-title">
     <h2 id="map-title">Thành phần trong mã nguồn</h2>
     <div class="grid">
       <article class="card"><h3>Thu thập và trạng thái</h3><p><code>feed/rss_reader.py</code> đọc RSS; <code>stories/clustering.py</code> gom bài; <code>review/queue.py</code> tạo và lọc hàng đợi JSON.</p></article>
-      <article class="card"><h3>Nghiên cứu và tạo chữ</h3><p><code>agent/newsroom.py</code> điều phối agent và đọc bài; <code>content/ai_writer.py</code> gọi Ollama để tạo, rà soát và dịch chữ.</p></article>
+      <article class="card"><h3>Nghiên cứu và tạo chữ</h3><p><code>agent/newsroom.py</code> điều phối agent, đọc bài và precheck script; <code>content/ai_writer.py</code> gọi Ollama để nghiên cứu, viết fallback, rà soát và dịch chữ.</p></article>
       <article class="card"><h3>Media và video</h3><p><code>agent/media.py</code> lấy ảnh, nạp danh mục và tải track NCS; <code>video/render.py</code> tạo ảnh ghép và MP4; <code>video/retention.py</code> quản lý thời hạn file.</p></article>
       <article class="card"><h3>Giao diện và xuất bản</h3><p><code>api/main.py</code> cung cấp API; <code>review_ui/</code> là giao diện React; <code>publishing/youtube.py</code> xác thực OAuth và đăng video.</p></article>
     </div>

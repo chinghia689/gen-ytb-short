@@ -12,6 +12,8 @@ from urllib.error import URLError
 from urllib.request import Request, urlopen
 from urllib.parse import urlsplit, urlunsplit
 
+from prototype.performance import count, stage
+
 
 def _tag_name(tag: str) -> str:
     return tag.rsplit("}", 1)[-1].casefold()
@@ -124,20 +126,30 @@ def fetch_sources(config_path: Path):
     records: list[dict[str, Any]] = []
     errors: list[str] = []
 
-    for index, source in enumerate(sources):
-        if index:
-            time.sleep(1)
-        request = Request(
-            source["url"],
-            headers={"User-Agent": "YtbShortNewsPrototype/0.2 (RSS metadata reader)"},
-        )
-        try:
-            with urlopen(request, timeout=20) as response:
-                items = parse_feed(response.read(), source, config)
-            records.extend(items)
-            print(f"{source['name']}: nhận {len(items)} mục RSS")
-        except (URLError, TimeoutError, ET.ParseError, OSError, KeyError, ValueError) as exc:
-            errors.append(f"{source.get('name', source.get('url'))}: {exc}")
+    with stage("rss_fetch", source_count=len(sources)):
+        for index, source in enumerate(sources):
+            if index:
+                with stage("rss_rate_limit_wait", source=source.get("name", "")):
+                    time.sleep(1)
+            request = Request(
+                source["url"],
+                headers={"User-Agent": "YtbShortNewsPrototype/0.2 (RSS metadata reader)"},
+            )
+            try:
+                with stage("rss_source", source=source.get("name", "")):
+                    with stage("rss_network_wait", source=source.get("name", "")):
+                        with urlopen(request, timeout=20) as response:
+                            payload = response.read()
+                    with stage("rss_parse", source=source.get("name", ""), bytes_read=len(payload)):
+                        items = parse_feed(payload, source, config)
+                count("rss_sources_succeeded")
+                records.extend(items)
+                print(f"{source['name']}: nhận {len(items)} mục RSS")
+            except (URLError, TimeoutError, ET.ParseError, OSError, KeyError, ValueError) as exc:
+                count("rss_source_errors")
+                if isinstance(exc, TimeoutError):
+                    count("timeouts")
+                errors.append(f"{source.get('name', source.get('url'))}: {exc}")
 
     unique: list[dict[str, Any]] = []
     seen: set[str] = set()

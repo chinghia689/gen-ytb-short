@@ -11,3 +11,4 @@ prototype/data/live_news.json
 prototype/data/review_queue.json
 prototype/data/stories.json
 prototype/data/youtube_oauth_token.json
+prototype/data/performance.jsonl

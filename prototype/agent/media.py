@@ -15,6 +15,8 @@ from urllib.parse import urljoin, urlsplit
 import httpx
 from PIL import Image
 
+from prototype.performance import count, stage
+
 
 NCS_CATALOG_URL = "https://ncs.io/?display=list&page={page}"
 NCS_TRACK_HOST = "ncsmusic.s3.eu-west-1.amazonaws.com"
@@ -101,10 +103,12 @@ def _ncs_catalog(media_dir: Path) -> list[dict[str, str]]:
             age_seconds = time.time() - float(cached.get("updated_at", 0))
             items = cached.get("tracks", [])
             if age_seconds < 24 * 60 * 60 and isinstance(items, list) and items:
+                count("ncs_catalog_cache_hits")
                 return items
         except (OSError, ValueError, TypeError, json.JSONDecodeError, AttributeError):
             pass
 
+    count("ncs_catalog_cache_misses")
     pages: dict[int, str] = {}
     try:
         _, first_page = _fetch_ncs_catalog_page(1)
@@ -329,10 +333,13 @@ def acquire_story_media(
     image_is_valid = image.get("provider") == "news_source"
     if not image_path.is_file() or not image_is_valid:
         report("image_search")
-        image = _publisher_image(story)
+        count("image_cache_misses")
+        with stage("image_search", story_id=story["story_id"]):
+            image = _publisher_image(story)
         image_ext = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp"}[image["mime"]]
         image_path = media_dir / f"{story['story_id']}_image{image_ext}"
-        _save_publisher_image(image, image_path)
+        with stage("image_save", story_id=story["story_id"]):
+            _save_publisher_image(image, image_path)
         image.pop("bytes", None)
         image["provider"] = "news_source"
         image["artist"] = image["publisher"]
@@ -341,6 +348,8 @@ def acquire_story_media(
         image["file_page_url"] = image["source_url"]
         image["local_path"] = str(image_path)
         image_meta_path.write_text(json.dumps(image, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    else:
+        count("image_cache_hits")
 
     report("audio_search")
     selection_path = media_dir / "background_music_selection.json"
@@ -350,7 +359,8 @@ def acquire_story_media(
             last_track_id = str(json.loads(selection_path.read_text(encoding="utf-8")).get("last_track_id", ""))
         except (OSError, json.JSONDecodeError, AttributeError):
             pass
-    ncs_tracks = _ncs_catalog(media_dir)
+    with stage("ncs_catalog", story_id=story["story_id"]):
+        ncs_tracks = _ncs_catalog(media_dir)
     options = [item for item in ncs_tracks if item.get("track_id") != last_track_id] or ncs_tracks
     random.shuffle(options)
     music = None
@@ -361,7 +371,11 @@ def acquire_story_media(
         candidate_path = media_dir / f"ncs_music_{digest}{suffix}"
         try:
             if not candidate_path.is_file():
-                _download_ncs_audio(candidate["download_url"], candidate_path)
+                count("music_cache_misses")
+                with stage("music_download", story_id=story["story_id"], track_id=candidate["track_id"]):
+                    _download_ncs_audio(candidate["download_url"], candidate_path)
+            else:
+                count("music_cache_hits")
         except (httpx.HTTPError, OSError, ValueError):
             continue
         music = candidate
