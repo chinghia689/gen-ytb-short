@@ -77,6 +77,7 @@ Newsroom agent tải các URL thuộc story trong allowlist host, trích nội d
 | Thành phần | Trách nhiệm |
 | --- | --- |
 | `prototype/config/sources.json` | Danh sách nguồn RSS và cấu hình nguồn được bật. |
+| `prototype/cli.py` | CLI cho fetch, agent, chuẩn bị review, tạo draft và báo cáo hiệu năng. |
 | `prototype/feed/rss_reader.py` | Đọc RSS/Atom và chuẩn hóa bản ghi tin. |
 | `prototype/stories/clustering.py` | Gom các bài có cùng story theo URL hoặc tiêu đề tương tự. |
 | `prototype/review/queue.py` | Tạo, cập nhật và lọc hàng đợi JSON. |
@@ -85,12 +86,40 @@ Newsroom agent tải các URL thuộc story trong allowlist host, trích nội d
 | `prototype/agent/media.py` | Tìm ảnh, nạp danh mục và tải track NCS. |
 | `prototype/video/render.py` | Ghép ảnh, chữ và credits thành video dọc. |
 | `prototype/video/retention.py` | Quản lý thời hạn lưu file media. |
+| `prototype/performance.py` | Ghi stage/counter thành JSONL và tính thống kê thời gian. |
 | `prototype/api/main.py` | Cung cấp API cho luồng biên tập và tạo video. |
 | `prototype/review_ui/` | Giao diện React cho hàng đợi biên tập. |
 | `prototype/publishing/youtube.py` | Xác thực OAuth và đăng video kèm nguồn, credit NCS. |
 | `prototype/data/` | Trạng thái story, hàng đợi và dữ liệu runtime. |
 
 Danh mục NCS và URL track được lấy từ website chính thức. Nếu cấu trúc website hoặc điều khoản thay đổi, parser hoặc khả năng sử dụng nhạc có thể cần cập nhật.
+
+## Công nghệ, framework và cách triển khai
+
+- **Backend:** Python; FastAPI và Pydantic cho REST API, Uvicorn để chạy server; HTTP dùng `httpx`, RSS/Atom được đọc bằng `urllib` và `xml.etree.ElementTree`.
+- **Frontend:** React 18, React DOM và Vite 6 (`@vitejs/plugin-react`) cho giao diện hàng đợi biên tập.
+- **AI:** Ollama qua HTTP `POST /api/chat`, model mặc định `qwen3:8b`, có thể đổi bằng `OLLAMA_BASE_URL` và `QWEN_MODEL`. Agent tải và trích bài trước rồi gửi nội dung trong một lượt nghiên cứu; mã hiện không dùng LLM tool-calling.
+- **Media và xuất bản:** Pillow tạo ảnh card; FFmpeg mã hóa MP4; Google YouTube Data API client cùng OAuth 2.0 để đăng video. Ảnh, bài báo và danh mục nhạc tải qua HTTPS.
+- **Lưu trữ:** JSON cho story/hàng đợi, JSONL cho telemetry; không có cơ sở dữ liệu. Một số kết quả tải về được cache trên file.
+
+### Cách xử lý chính
+
+- **Gom story:** URL giống nhau được nhóm trực tiếp; giữa các nhà xuất bản, tiêu đề được chuẩn hóa thành token rồi so bằng độ giao nhau token và `SequenceMatcher`. Ngưỡng tương đồng hiện tại là `0.74`.
+- **Đọc nguồn an toàn:** chỉ đọc HTTPS từ host allowlist; URL trùng được loại, tối đa bốn bài tải song song và tổng phần văn bản bài nguồn đưa vào ngữ cảnh LLM bị giới hạn 24.000 ký tự. Không đọc được bài nào thì không gọi LLM nghiên cứu.
+- **Kiểm soát script:** validator xác định kiểm tra ba dòng, độ dài, nội dung khác nhau và cách diễn đạt story `uncertain`; reviewer LLM vẫn kiểm tra nội dung độc lập.
+- **Tác vụ đồng thời và đo đạc:** `ThreadPoolExecutor` giới hạn số tác vụ tải; telemetry theo stage lưu JSONL và báo cáo mean, p50, p95.
+
+### Hàm và công cụ quan trọng
+
+| Chặng | Hàm / công cụ |
+| --- | --- |
+| RSS và gom story | `fetch_sources`, `parse_feed`, `cluster_articles`, `title_similarity` |
+| Nghiên cứu và script | `read_source_article`, `research_story`, `write_video_lines`, `validate_video_lines`, `review_video_text`, `translate_video_lines_en` |
+| Ảnh, nhạc và video | `acquire_story_media`, `render_video`, Pillow, FFmpeg (`subprocess`) |
+| API và xuất bản | FastAPI routes trong `prototype/api/main.py`, `upload_video`, Google YouTube Data API, OAuth 2.0 |
+| Vận hành và telemetry | CLI `fetch`, `agent`, `perf`; `PerformanceRun`, `stage`, `summarize` |
+
+**MCP:** hiện không có MCP server/client được tích hợp trong ứng dụng. Các tích hợp bên ngoài là HTTP tới Ollama, nguồn RSS/trang NCS, FFmpeg cài trên máy và YouTube API.
 
 ## Đo thời gian xử lý
 

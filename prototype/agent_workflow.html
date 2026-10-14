@@ -205,6 +205,48 @@
     <p class="warning" style="margin-top:16px">Danh mục NCS và URL track được lấy trực tiếp từ website chính thức. Nếu cấu trúc website hoặc điều khoản thay đổi, parser hoặc khả năng dùng nhạc có thể cần cập nhật.</p>
   </section>
 
+  <section aria-labelledby="stack-title">
+    <h2 id="stack-title">Công nghệ, framework và cách triển khai</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Backend và giao diện</h3>
+        <ul>
+          <li><strong>Python</strong> làm runtime; <strong>FastAPI</strong> + Pydantic cung cấp REST API, chạy bằng Uvicorn.</li>
+          <li><strong>React 18</strong> và <strong>Vite 6</strong> xây giao diện Review UI; Vite proxy API sang FastAPI.</li>
+          <li><strong>httpx</strong> gọi HTTP; thư viện chuẩn `urllib` và `xml.etree.ElementTree` đọc RSS/Atom.</li>
+          <li>Story/hàng đợi lưu JSON; telemetry lưu JSONL. Hiện không dùng cơ sở dữ liệu.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>AI và dịch vụ ngoài</h3>
+        <ul>
+          <li><strong>Ollama</strong> qua HTTP <code>POST /api/chat</code>; model mặc định <code>qwen3:8b</code>, cấu hình bằng <code>OLLAMA_BASE_URL</code> và <code>QWEN_MODEL</code>.</li>
+          <li>Nghiên cứu tải bài trước rồi gửi một lượt LLM; mã hiện không dùng LLM tool-calling.</li>
+          <li><strong>Google YouTube Data API</strong> qua thư viện Google API và OAuth 2.0 để đăng video.</li>
+          <li><strong>MCP:</strong> chưa tích hợp MCP server hoặc client trong ứng dụng.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Phương pháp xử lý</h3>
+        <ul>
+          <li>Clustering theo URL trùng hoặc tiêu đề khác nhà xuất bản; so token và <code>SequenceMatcher</code>, ngưỡng hiện tại 0,74.</li>
+          <li>Chỉ tải HTTPS từ host allowlist; tối đa bốn bài song song, giới hạn phần văn bản bài nguồn trong ngữ cảnh LLM ở 24.000 ký tự.</li>
+          <li>Precheck script bằng quy tắc xác định, sau đó reviewer LLM kiểm tra nội dung độc lập.</li>
+          <li><strong>Pillow</strong> tạo card ảnh; <strong>FFmpeg</strong> mã hóa ảnh và audio thành MP4.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Hàm và công cụ chính</h3>
+        <ul>
+          <li>RSS/story: <code>fetch_sources</code>, <code>parse_feed</code>, <code>cluster_articles</code>, <code>title_similarity</code>.</li>
+          <li>Nghiên cứu/script: <code>read_source_article</code>, <code>research_story</code>, <code>validate_video_lines</code>, <code>review_video_text</code>, <code>translate_video_lines_en</code>.</li>
+          <li>Media/ops: <code>acquire_story_media</code>, <code>render_video</code>, <code>cleanup_expired_outputs</code>, <code>PerformanceRun</code>, <code>summarize</code>.</li>
+          <li>CLI: <code>python -m prototype fetch</code>, <code>agent</code> và <code>perf</code>.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
   <footer>Tài liệu mô tả luồng triển khai hiện tại trong mã nguồn của prototype.</footer>
 </main>
 </body>
